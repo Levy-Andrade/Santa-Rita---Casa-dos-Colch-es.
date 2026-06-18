@@ -532,6 +532,215 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   80% { transform: translateY(12px); opacity: 0; }
 }
 
+/* =======================================================================
+   SOLUÇÕES DE TRANSIÇÃO HERO → BANNER PROMOCIONAL
+   =======================================================================
+
+   PROBLEMA: As duas seções usam fotos de ambientes parecidos, gerando
+   um corte seco e amador. O botão de CTA fica colado no limite da seção.
+
+   3 SOLUÇÕES IMPLEMENTADAS (escolha 1 ou combine-as):
+   ─────────────────────────────────────────────────────────────────────
+   1. .hero-transition-strip  — Faixa de Diferenciais (respiro neutro)
+   2. .hero via ::after       — Shape Divider (corte diagonal na base)
+   3. .hero via ::before      — Fade to White (gradiente na base)
+   ───────────────────────────────────────────────────────────────────── */
+
+
+/* ── SOLUÇÃO 1: FAIXA DE DIFERENCIAIS (respiro neutro) ──────────────
+   Uma faixa branca/cinza-claro entre o Hero e o Banner com ícones
+   minimalistas que listam os principais diferenciais da loja.
+
+   USO NO HTML: Insira o bloco abaixo entre </section.hero> e <section.banner-promo>:
+
+   <div class="hero-transition-strip" aria-label="Nossos diferenciais">
+     <div class="container hero-transition-strip__inner">
+       <div class="hero-diferencial">
+         <svg class="hero-diferencial__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+         <span class="hero-diferencial__texto">Fabricação Própria</span>
+       </div>
+       <div class="hero-diferencial">
+         <svg class="hero-diferencial__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+         <span class="hero-diferencial__texto">Sob Medida</span>
+       </div>
+       <div class="hero-diferencial">
+         <svg class="hero-diferencial__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+         <span class="hero-diferencial__texto">Entrega Rápida</span>
+       </div>
+       <div class="hero-diferencial">
+         <svg class="hero-diferencial__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+         <span class="hero-diferencial__texto">Garantia Estendida</span>
+       </div>
+     </div>
+   </div>
+   ─────────────────────────────────────────────────────────────────── */
+
+.hero-transition-strip {
+  background: #F8F9FA;              /* cinza levíssimo — respiro neutro */
+  border-top: 1px solid #EAECEF;
+  border-bottom: 1px solid #EAECEF;
+  padding: 32px 0;                  /* 32px top/bottom = espaçamento confortável */
+}
+
+.hero-transition-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-diferencial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.hero-diferencial__icon {
+  width: 36px;
+  height: 36px;
+  color: var(--azul-santa-rita, #1E4D8C);
+  flex-shrink: 0;
+  transition: transform .25s ease;
+}
+.hero-diferencial:hover .hero-diferencial__icon {
+  transform: scale(1.15);
+  color: var(--vermelho-santa-rita, #DC2626);
+}
+
+.hero-diferencial__texto {
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #4A5568;
+}
+
+/* Separador vertical entre itens (desktop) */
+.hero-diferencial + .hero-diferencial::before {
+  content: '';
+  display: block;
+  position: absolute;
+  /* Técnica: usa padding do gap em vez de elemento absoluto */
+}
+
+@media (min-width: 600px) {
+  .hero-transition-strip { padding: 36px 0; }
+  .hero-diferencial { flex-direction: row; gap: 12px; text-align: left; }
+  .hero-diferencial__texto { font-size: .85rem; }
+}
+
+@media (min-width: 900px) {
+  .hero-transition-strip__inner { gap: 56px; }
+  .hero-diferencial__icon { width: 32px; height: 32px; }
+}
+
+
+/* ── SOLUÇÃO 2: SHAPE DIVIDER (corte diagonal na base do Hero) ───────
+   Um SVG diagonal sutil mascara a emenda das fotos de fundo.
+   Aplicado como pseudo-elemento no .hero para não adicionar HTML.
+
+   COMO ATIVAR: Adicione a classe `.hero--shape-divider` no HTML:
+   <section class="hero hero--shape-divider" ...>
+
+   VARIANTE A — diagonal simples (já aplicada abaixo)
+   VARIANTE B — troque o SVG por uma onda suave (veja comentário inline)
+   ─────────────────────────────────────────────────────────────────── */
+
+.hero--shape-divider {
+  /* Garante espaço para o shape não sobrepor o conteúdo */
+  padding-bottom: 80px;
+}
+
+.hero--shape-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;         /* -1px elimina micro-gap entre seções */
+  left: 0;
+  width: 100%;
+  height: 80px;
+  /* SVG inline: diagonal da esquerda-baixo para direita-topo */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpolygon points='0%2C80 1440%2C0 1440%2C80' fill='%23ffffff'/%3E%3C/svg%3E");
+  /*
+     VARIANTE — Onda suave (substituir background-image acima):
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0%2C40 C360%2C80 1080%2C0 1440%2C40 L1440%2C80 L0%2C80 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Ajuste do CTA: afasta do limite inferior para não colidir com o shape */
+.hero--shape-divider .hero__ctas {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .hero--shape-divider::after { height: 48px; }
+  .hero--shape-divider { padding-bottom: 48px; }
+}
+
+
+/* ── SOLUÇÃO 3: FADE TO WHITE (gradiente suave na base do Hero) ──────
+   A foto do Hero esmaece progressivamente para branco antes de tocar
+   o banner, eliminando o corte visual abrupto.
+
+   COMO ATIVAR: Adicione a classe `.hero--fade-bottom` no HTML:
+   <section class="hero hero--fade-bottom" ...>
+
+   Combina bem com a Solução 2 — use ambas ao mesmo tempo:
+   <section class="hero hero--shape-divider hero--fade-bottom" ...>
+   ─────────────────────────────────────────────────────────────────── */
+
+.hero--fade-bottom::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /*
+   * Altura do gradiente: 220px = espaço confortável de transição.
+   * Aumentar para 280–320px em telas grandes se a foto for muito densa.
+   */
+  height: 220px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.0)  0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.55) 60%,
+    rgba(255, 255, 255, 0.88) 80%,
+    rgba(255, 255, 255, 1.0)  100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/*
+ * Se a cor da seção seguinte (banner-promo) for escura em vez de branca,
+ * substitua rgba(255,255,255,…) pela cor de fundo do banner. Ex:
+ *   rgba(13, 13, 13, 1.0)  → banner com background #0d0d0d
+ */
+
+@media (max-width: 768px) {
+  .hero--fade-bottom::before { height: 140px; }
+}
+
+
+/* ── BÔNUS: Margem inferior do CTA hero (evita colagem no limite) ────
+   Independente da solução escolhida, adicione padding-bottom generoso
+   ao hero para que o CTA respire antes do próximo elemento.
+   ─────────────────────────────────────────────────────────────────── */
+.hero__content {
+  padding-bottom: max(80px, 10vh);  /* nunca menos de 80px */
+}
+
+/* ===================================================================== */
+
 /* ===== STATS STRIP ===== */
 .stats-strip {
   background: var(--azul-santa-rita);
@@ -2618,63 +2827,77 @@ input[type="range"] { accent-color: var(--primary-red); }
 
 /* ===== 2. CATEGORIAS — SLIDER COM SETAS E CARDS COM IMAGEM ===== */
 
-/* Container externo com posição relativa para as setas */
+/*
+ * FIX: O bug do espaço em branco nas extremidades ocorria porque:
+ * 1. .categorias__slider-container tinha padding: 0 56px, encolhendo o track
+ * 2. As setas ficavam DENTRO do fluxo (não sobrepostas), deslocando o track
+ * 3. Não havia loop infinito — ao chegar no fim, o scroll parava com gap vazio
+ *
+ * Solução:
+ * - Setas com position: absolute FORA do track-wrap (z-index alto, sobrepostas)
+ * - .categorias__slider-container sem padding lateral (max-width alinhado à seção)
+ * - Loop infinito via clonagem de cards no JS (cat-card--clone)
+ * - overflow: hidden no container pai para suprimir clones visíveis nas bordas
+ */
+
+/* Container externo: largura total alinhada com o restante da página */
 .categorias__slider-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0 56px; /* espaço para as setas nas laterais */
+  position: relative;           /* ancora as setas absolutas */
+  width: 100%;
+  overflow: hidden;             /* ← CRÍTICO: esconde os cards clone além das bordas */
+  /* SEM padding lateral — as setas ficam sobrepostas via position:absolute */
 }
 
-@media (max-width: 600px) {
-  .categorias__slider-container {
-    padding: 0 40px;
-  }
-}
-
-/* Setas de navegação do slider de categorias */
+/* Setas de navegação — sobrepostas ao track (não empurram o layout) */
 .cat-slider__arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 20;                  /* acima dos cards */
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--branco-puro);
+  background: rgba(255,255,255,.92);
   border: 2px solid var(--borda);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: var(--transicao);
-  box-shadow: var(--sombra-md);
+  box-shadow: 0 4px 20px rgba(0,0,0,.18);
   flex-shrink: 0;
+  /* Garantir que as setas não criem falso espaçamento interno */
+  pointer-events: auto;
 }
-.cat-slider__arrow--prev { left: 4px; }
-.cat-slider__arrow--next { right: 4px; }
+/* Posição: coladas nas bordas, sobrepostas aos cards */
+.cat-slider__arrow--prev { left: 8px; }
+.cat-slider__arrow--next { right: 8px; }
 
 .cat-slider__arrow:hover {
   background: var(--primary-red);
   border-color: var(--primary-red);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(220,38,38,.3);
+  box-shadow: 0 4px 16px rgba(220,38,38,.35);
 }
+/* Loop infinito: setas nunca ficam desabilitadas */
 .cat-slider__arrow:disabled {
   opacity: .35;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* Track wrap — ocupa espaço disponível */
+/* Track wrap — largura total, sem padding que gere espaço falso */
 .categorias__track-wrap {
-  flex: 1;
+  width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 16px 8px 28px;
+  /* Padding vertical para sombra dos cards; ZERO horizontal para evitar whitespace */
+  padding: 16px 0 28px;
   cursor: grab;
   scroll-behavior: smooth;
+  /* Snap opcional: encaixa o card mais próximo da borda esquerda */
+  scroll-snap-type: x mandatory;
 }
 .categorias__track-wrap:active { cursor: grabbing; }
 .categorias__track-wrap::-webkit-scrollbar { display: none; }
@@ -2683,6 +2906,70 @@ input[type="range"] { accent-color: var(--primary-red); }
   display: flex;
   gap: 20px;
   width: max-content;
+  /* Padding lateral interno: empurra o 1º card para longe da borda/seta */
+  padding-inline: 60px;
+}
+
+/* Cards clone do loop infinito — mesma aparência, sem interação de teclado */
+.cat-card--clone {
+  pointer-events: auto;         /* clique ainda funciona via JS */
+  user-select: none;
+}
+
+/* ── Snap por card para parada precisa ── */
+.cat-card {
+  scroll-snap-align: start;
+}
+
+/* ── Responsividade ──────────────────────────────────────────────────
+   Desktop (≥900px): 4–5 cards visíveis, setas sobrepostas
+   Tablet (600–899px): ~3 cards + peek do próximo
+   Mobile (<600px): ~1,5 cards + peek do seguinte (sinaliza arraste)
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Desktop: cards um pouco menores para caber 4–5 sem sobra */
+@media (min-width: 900px) {
+  .cat-card {
+    width: calc((100vw - 240px) / 4.5); /* ~4–5 cards visíveis */
+    max-width: 200px;
+    min-width: 160px;
+  }
+  .categorias__track {
+    padding-inline: 56px;
+    gap: 20px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 600px) and (max-width: 899px) {
+  .cat-card {
+    width: 200px;
+    height: 240px;
+  }
+  .categorias__track {
+    padding-inline: 52px;
+    gap: 16px;
+  }
+}
+
+/* Mobile: 1,5 cards → o segundo card fica cortado ~50%, sinalizando swipe */
+@media (max-width: 599px) {
+  .cat-card {
+    width: calc(50vw - 16px);  /* ~45vw → 1,5 card na tela */
+    min-width: 140px;
+    max-width: 180px;
+    height: 200px;
+  }
+  .categorias__track {
+    padding-inline: 48px;
+    gap: 12px;
+  }
+  .cat-slider__arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .cat-slider__arrow--prev { left: 4px; }
+  .cat-slider__arrow--next { right: 4px; }
 }
 
 /* Novo cat-card — maior, com área para imagem de fundo */
@@ -2731,25 +3018,9 @@ input[type="range"] { accent-color: var(--primary-red); }
   pointer-events: none;
 }
 
-/* Ícone da categoria — posicionado no topo */
+/* cat-card__icon — oculto (emojis removidos em v2, apenas imagem + nome) */
 .cat-card__icon {
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
-  background: rgba(255,255,255,.18);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1.5px solid rgba(255,255,255,.3);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  z-index: 1;
-  transition: var(--transicao);
+  display: none;
 }
 
 /* Nome da categoria — centralizado na base do card */
@@ -2774,10 +3045,7 @@ input[type="range"] { accent-color: var(--primary-red); }
   box-shadow: 0 12px 32px rgba(0,0,0,.28);
   border-color: rgba(255,255,255,.4);
 }
-.cat-card:hover .cat-card__icon {
-  background: rgba(255,255,255,.28);
-  transform: translateX(-50%) scale(1.08);
-}
+/* .cat-card__icon hover removido (ícone não existe mais) */
 
 /* Estado ativo (categoria selecionada) */
 .cat-card.ativa {
@@ -2795,15 +3063,16 @@ input[type="range"] { accent-color: var(--primary-red); }
 .cat-card.ativa .cat-card__nome { color: var(--primary-red); }
 
 
-/* ===== 3. BANNER PROMOCIONAL — CARROSSEL FULL-WIDTH ===== */
+/* ===== 3. BANNER PROMOCIONAL — CARROSSEL FULL-WIDTH (v2 — refinado) ===== */
 
 .banner-promo {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: #111;
-  /* Separador visual do hero */
+  background: #0d0d0d;
   border-bottom: 3px solid var(--primary-red);
+  /* Garante que setas e dots não sejam cortados */
+  isolation: isolate;
 }
 
 .banner-promo__track-wrap {
@@ -2811,10 +3080,12 @@ input[type="range"] { accent-color: var(--primary-red); }
   overflow: hidden;
 }
 
+/* Track: transição suave com transform + opacity */
 .banner-promo__track {
   display: flex;
-  transition: transform .55s cubic-bezier(.4,0,.2,1);
   will-change: transform;
+  /* Transição principal de slide */
+  transition: transform 0.55s ease-in-out;
 }
 
 /* Cada slide ocupa 100% da largura */
@@ -2824,17 +3095,24 @@ input[type="range"] { accent-color: var(--primary-red); }
   position: relative;
   display: block;
   overflow: hidden;
-  /* Proporção 3:1 — manter aspect-ratio para diferentes banners */
   aspect-ratio: 3 / 1;
   background: var(--azul-escuro);
   text-decoration: none;
+  /* Fade de opacidade ao entrar/sair */
+  opacity: 0.55;
+  transition: transform 0.55s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+/* Slide ativo fica com opacidade total */
+.banner-slide.ativo {
+  opacity: 1;
 }
 
 @media (max-width: 767px) {
-  /* Mobile: proporção mais alta para melhor leitura */
-  .banner-slide {
-    aspect-ratio: 2 / 1;
-  }
+  .banner-slide { aspect-ratio: 2 / 1; }
+}
+@media (max-width: 480px) {
+  .banner-slide { aspect-ratio: 16 / 9; }
 }
 
 /* Imagem do banner */
@@ -2843,13 +3121,15 @@ input[type="range"] { accent-color: var(--primary-red); }
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform .6s ease;
+  transition: transform 0.65s ease;
+  user-select: none;
+  pointer-events: none; /* evita arrastar a imagem no Firefox */
 }
-.banner-slide:hover img {
-  transform: scale(1.02);
+.banner-slide.ativo:hover img {
+  transform: scale(1.025);
 }
 
-/* Overlay de texto — visível por cima da imagem */
+/* ── Overlay de texto (responsivo e centralizado em mobile) ── */
 .banner-slide__overlay {
   position: absolute;
   inset: 0;
@@ -2857,94 +3137,147 @@ input[type="range"] { accent-color: var(--primary-red); }
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: clamp(24px, 5vw, 60px);
+  padding: clamp(20px, 5vw, 64px);
   background: linear-gradient(
-    to right,
-    rgba(0,0,0,.72) 0%,
-    rgba(0,0,0,.4) 55%,
+    105deg,
+    rgba(0,0,0,.78) 0%,
+    rgba(0,0,0,.48) 50%,
     transparent 100%
   );
   z-index: 2;
+}
+
+/* Em telas muito pequenas: centralizar o texto */
+@media (max-width: 480px) {
+  .banner-slide__overlay {
+    align-items: center;
+    text-align: center;
+    background: rgba(0,0,0,.6);
+  }
 }
 
 .banner-slide__tag {
   display: inline-block;
   background: var(--primary-red);
   color: #fff;
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .1em;
-  padding: 5px 12px;
+  letter-spacing: .12em;
+  padding: 5px 14px;
   border-radius: 99px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  /* Entrada animada quando slide ativo */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .4s ease .1s, transform .4s ease .1s;
 }
-
 .banner-slide__titulo {
   font-family: var(--fonte-display);
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.4rem, 3.5vw, 2.8rem);
   font-weight: 700;
   color: #FFFFFF;
   line-height: 1.15;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 8px rgba(0,0,0,.4);
-  max-width: 560px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+  max-width: 580px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .45s ease .2s, transform .45s ease .2s;
 }
-
 .banner-slide__sub {
-  font-size: clamp(.85rem, 1.8vw, 1.1rem);
-  color: rgba(255,255,255,.88);
-  margin-bottom: 20px;
-  max-width: 440px;
-  line-height: 1.5;
+  font-size: clamp(.82rem, 1.6vw, 1.05rem);
+  color: rgba(255,255,255,.9);
+  margin-bottom: 22px;
+  max-width: 460px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .45s ease .3s, transform .45s ease .3s;
 }
-
 .banner-slide__cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: var(--primary-red);
   color: #fff;
-  font-size: .9rem;
+  font-size: .88rem;
   font-weight: 700;
-  padding: 12px 24px;
+  padding: 13px 28px;
   border-radius: var(--raio);
-  transition: var(--transicao);
+  transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
   text-transform: uppercase;
-  letter-spacing: .04em;
+  letter-spacing: .05em;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .45s ease .4s, transform .45s ease .4s,
+              background .25s ease, box-shadow .25s ease;
 }
-.banner-slide:hover .banner-slide__cta {
+/* Ao ativar slide: animar entry dos textos */
+.banner-slide.ativo .banner-slide__tag,
+.banner-slide.ativo .banner-slide__titulo,
+.banner-slide.ativo .banner-slide__sub,
+.banner-slide.ativo .banner-slide__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.banner-slide.ativo:hover .banner-slide__cta {
   background: var(--primary-red-hover);
-  transform: translateX(4px);
+  box-shadow: 0 6px 20px rgba(220,38,38,.4);
+  transform: translateY(-2px);
 }
 
-/* Setas do banner */
+/* ── Setas laterais — discretas, destaque só no hover ── */
 .banner-promo__arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: rgba(255,255,255,.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1.5px solid rgba(255,255,255,.3);
-  color: #fff;
+  /* Estado padrão: quase invisível */
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.55);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transicao);
+  /* Transição suave de todos os estados */
+  transition: background .3s ease, border-color .3s ease,
+              color .3s ease, box-shadow .3s ease, transform .3s ease;
+  /* Recua levemente para parecer discreta */
+  opacity: .6;
 }
+
+/* Hover: destaque completo */
 .banner-promo__arrow:hover {
   background: var(--primary-red);
   border-color: var(--primary-red);
+  color: #fff;
+  opacity: 1;
+  box-shadow: 0 4px 20px rgba(220,38,38,.45);
+  transform: translateY(-50%) scale(1.08);
 }
 
-.banner-promo__arrow--prev { left: 20px; }
-.banner-promo__arrow--next { right: 20px; }
+/* Focus acessível */
+.banner-promo__arrow:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Mostrar setas apenas quando hover no container (desktop) */
+@media (hover: hover) {
+  .banner-promo:not(:hover) .banner-promo__arrow {
+    opacity: .35;
+  }
+}
+
+.banner-promo__arrow--prev { left: 18px; }
+.banner-promo__arrow--next { right: 18px; }
 
 @media (max-width: 480px) {
   .banner-promo__arrow {
@@ -2955,33 +3288,49 @@ input[type="range"] { accent-color: var(--primary-red); }
   .banner-promo__arrow--next { right: 8px; }
 }
 
-/* Dots do banner */
+/* ── Dots — discretos, elegantes, transição suave ── */
 .banner-promo__dots {
   position: absolute;
-  bottom: 16px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 7px;
+  align-items: center;
   z-index: 10;
 }
 
 .banner-promo__dot {
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,.45);
-  border: none;
+  /* Fundo com borda sutil para visibilidade sobre qualquer imagem */
+  background: rgba(255,255,255,.35);
+  border: 1.5px solid rgba(255,255,255,.5);
   cursor: pointer;
-  transition: var(--transicao);
+  /* Transição suave de todos os estados */
+  transition: background .4s ease, width .4s ease, border-radius .4s ease,
+              border-color .4s ease, opacity .4s ease;
   padding: 0;
+  opacity: .7;
+  flex-shrink: 0;
 }
+
+/* Dot ativo: expande para pílula e fica branco */
 .banner-promo__dot.ativo {
   background: #fff;
-  width: 28px;
-  border-radius: 5px;
+  width: 26px;
+  border-radius: 4px;
+  border-color: #fff;
+  opacity: 1;
 }
-.banner-promo__dot:hover { background: rgba(255,255,255,.75); }
+
+/* Hover nos dots inativos */
+.banner-promo__dot:not(.ativo):hover {
+  background: rgba(255,255,255,.7);
+  border-color: rgba(255,255,255,.9);
+  opacity: 1;
+}
 
 
 /* ===== 4. DRAWER — estilos complementares ===== */

@@ -556,10 +556,8 @@ const initCategorias = () => {
     card.setAttribute('tabindex', '0');
     card.setAttribute('aria-pressed', 'false');
     card.dataset.cat = cat.id;
-    card.innerHTML = `
-      <div class="cat-card__icon" aria-hidden="true">${cat.emoji}</div>
-      <span class="cat-card__nome">${cat.nome}</span>
-    `;
+    /* Sem emoji — apenas nome da categoria */
+    card.innerHTML = `<span class="cat-card__nome">${cat.nome}</span>`;
 
     card.addEventListener('click', () => selecionarCategoria(cat.id, card));
     card.addEventListener('keydown', (e) => {
@@ -1106,6 +1104,14 @@ const atualizarFiltros = () => {
 };
 
 const initFiltros = () => {
+  /* ── PONTO 4: Listener do botão "Limpar filtros" (bug corrigido) ──
+     O botão #filtro-limpar não tinha addEventListener.
+     Aqui conectamos diretamente à função window.limparFiltros. */
+  document.getElementById('filtro-limpar')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.limparFiltros();
+  });
+
   // Botão "Ver Todos" — exibe filtros e todos os produtos
   document.getElementById('btn-ver-todos')?.addEventListener('click', () => {
     State.mostrandoTodos = true;
@@ -1180,31 +1186,53 @@ const initFiltros = () => {
 };
 
 // Exposto globalmente para uso no HTML inline (limpar filtros)
+/**
+ * limparFiltros — reseta TODOS os filtros (State + DOM) e re-renderiza
+ * a vitrine imediatamente, sem precisar recarregar a página.
+ * Exposta globalmente para uso em onclick inline e no listener do botão.
+ */
 window.limparFiltros = () => {
+  /* 1. Resetar o State global */
   State.categoriaSelecionada = 'todos';
-  State.filtroPrecoMax = 5000;
-  State.filtroDensidade = 'todas';
-  State.filtroOrdenacao = 'padrao';
+  State.filtroPrecoMax       = 5000;
+  State.filtroDensidade      = 'todas';
+  State.filtroOrdenacao      = 'padrao';
+  State.mostrandoTodos       = false; // voltar ao modo "destaques"
 
-  const filtroCat      = document.getElementById('filtro-categoria');
-  const filtroPreco    = document.getElementById('filtro-preco');
-  const labelPreco     = document.getElementById('filtro-preco-valor');
-  const filtroDens     = document.getElementById('filtro-densidade');
+  /* 2. Resetar visualmente todos os campos do DOM */
+  const filtroCat       = document.getElementById('filtro-categoria');
+  const filtroPreco     = document.getElementById('filtro-preco');
+  const labelPreco      = document.getElementById('filtro-preco-valor');
+  const filtroDens      = document.getElementById('filtro-densidade');
   const filtroOrdenacao = document.getElementById('filtro-ordenacao');
+  const tituloVitrine   = document.getElementById('vitrine-titulo');
+  const btnVerTodos     = document.getElementById('btn-ver-todos');
 
-  if (filtroCat)       filtroCat.value = 'todos';
-  if (filtroPreco)     filtroPreco.value = 5000;
-  if (labelPreco)      labelPreco.textContent = 'R$ 5.000';
-  if (filtroDens)      filtroDens.value = 'todas';
-  if (filtroOrdenacao) filtroOrdenacao.value = 'padrao';
+  if (filtroCat)       { filtroCat.value       = 'todos';  }
+  if (filtroPreco)     { filtroPreco.value      = '5000';  }
+  if (labelPreco)      { labelPreco.textContent = 'R$ 5.000'; }
+  if (filtroDens)      { filtroDens.value       = 'todas'; }
+  if (filtroOrdenacao) { filtroOrdenacao.value  = 'padrao'; }
 
+  /* 3. Restaurar título da vitrine */
+  if (tituloVitrine) tituloVitrine.textContent = 'Produtos em Destaque';
+
+  /* 4. Mostrar botão "Ver Todos" novamente */
+  if (btnVerTodos) btnVerTodos.style.display = '';
+
+  /* 5. Limpar seleção visual dos cards de categoria */
   document.querySelectorAll('.cat-card').forEach(c => {
     c.classList.remove('ativa');
     c.setAttribute('aria-pressed', 'false');
   });
 
+  /* 6. Fechar painel de filtros (opcional: só fecha se estiver "expandido") */
+  const filtrosPanel = document.getElementById('filtros');
+  if (filtrosPanel) filtrosPanel.hidden = true;
+
+  /* 7. Re-renderizar vitrine imediatamente */
   renderizarVitrine();
-  mostrarToast('Filtros removidos.', 'info');
+  mostrarToast('Filtros removidos. Exibindo destaques.', 'info');
 };
 
 /* ================================================
@@ -1876,7 +1904,7 @@ const initCategorias_v2 = () => {
   const btnNext = document.getElementById('cat-next');
   if (!track || !wrap) return;
 
-  /* — Renderizar cards com imagem de fundo — */
+  /* ── Renderizar cards — SEM emoji, apenas imagem de fundo + nome ── */
   CATEGORIAS_DATA.forEach(cat => {
     const card = document.createElement('div');
     card.className = 'cat-card reveal';
@@ -1888,15 +1916,13 @@ const initCategorias_v2 = () => {
     /* Aplicar imagem de fundo se disponível */
     const imgUrl = CATEGORIAS_IMAGES[cat.id];
     if (imgUrl) {
-      card.style.backgroundImage = `url('${imgUrl}')`;
-      card.style.backgroundSize  = 'cover';
+      card.style.backgroundImage    = `url('${imgUrl}')`;
+      card.style.backgroundSize     = 'cover';
       card.style.backgroundPosition = 'center';
     }
 
-    card.innerHTML = `
-      <div class="cat-card__icon" aria-hidden="true">${cat.emoji}</div>
-      <span class="cat-card__nome">${cat.nome}</span>
-    `;
+    /* Apenas o nome da categoria no rodapé */
+    card.innerHTML = `<span class="cat-card__nome">${cat.nome}</span>`;
 
     card.addEventListener('click',   () => selecionarCategoria(cat.id, card));
     card.addEventListener('keydown', (e) => {
@@ -1909,74 +1935,137 @@ const initCategorias_v2 = () => {
     track.appendChild(card);
   });
 
-  /* — Setas de navegação — */
-  const SCROLL_PASSO = 220; // px por clique na seta
+  /* ── LOOP INFINITO: clonar cards no início e no fim do track ── */
+  const originalCards = Array.from(track.children);
+  const totalOriginal = originalCards.length;
 
-  const atualizarSetas = () => {
-    if (!btnPrev || !btnNext) return;
-    btnPrev.disabled = wrap.scrollLeft <= 4;
-    btnNext.disabled = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 4;
+  /* Clones no FIM (exibidos após o último card real) */
+  originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.classList.add('cat-card--clone');
+    track.appendChild(clone);
+  });
+
+  /* Clones no INÍCIO (exibidos antes do primeiro card real) */
+  originalCards.slice().reverse().forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.classList.add('cat-card--clone');
+    track.insertBefore(clone, track.firstChild);
+  });
+
+  /* Reanexar listeners de clique nos clones (para que o filtro funcione) */
+  track.querySelectorAll('.cat-card--clone').forEach(clone => {
+    const catId = clone.dataset.cat;
+    clone.addEventListener('click', () => {
+      const original = track.querySelector(`.cat-card:not(.cat-card--clone)[data-cat="${catId}"]`);
+      selecionarCategoria(catId, original || clone);
+    });
+  });
+
+  /* ── Calcular largura de um card + gap para saltos precisos ── */
+  const getCardStep = () => {
+    const card = track.querySelector('.cat-card');
+    if (!card) return 220;
+    const style = getComputedStyle(track);
+    const gap   = parseFloat(style.gap) || 20;
+    return card.offsetWidth + gap;
   };
+
+  /* ── Posicionar o scroll no início dos cards REAIS (pular os clones do início) ── */
+  const jumpToReal = (instant = false) => {
+    const step  = getCardStep();
+    const target = step * totalOriginal;
+    if (instant) {
+      wrap.style.scrollBehavior = 'auto';
+      wrap.scrollLeft = target;
+      /* Forçar reflow antes de restaurar */
+      wrap.offsetHeight; // eslint-disable-line
+      wrap.style.scrollBehavior = '';
+    } else {
+      wrap.scrollLeft = target;
+    }
+  };
+
+  /* Posição inicial: início dos cards reais */
+  jumpToReal(true);
+
+  /* ── Setas de navegação com passo de 1 card ── */
+  const SCROLL_PASSO = () => getCardStep();
 
   btnPrev?.addEventListener('click', () => {
-    wrap.scrollBy({ left: -SCROLL_PASSO, behavior: 'smooth' });
+    wrap.scrollBy({ left: -SCROLL_PASSO(), behavior: 'smooth' });
   });
   btnNext?.addEventListener('click', () => {
-    wrap.scrollBy({ left: SCROLL_PASSO, behavior: 'smooth' });
+    wrap.scrollBy({ left: SCROLL_PASSO(), behavior: 'smooth' });
   });
 
-  wrap.addEventListener('scroll', atualizarSetas, { passive: true });
+  /* ── Loop: ao chegar na zona dos clones, saltar para os cards reais ── */
+  let loopTimeout;
+  wrap.addEventListener('scroll', () => {
+    const step         = getCardStep();
+    const cloneZoneEnd   = step * totalOriginal;          // início dos reais
+    const realZoneEnd    = step * (totalOriginal * 2);    // início dos clones do fim
+
+    clearTimeout(loopTimeout);
+    loopTimeout = setTimeout(() => {
+      if (wrap.scrollLeft < step * (totalOriginal - 1)) {
+        /* Usuário chegou na zona dos clones do INÍCIO → pular para o equivalente real no FIM */
+        wrap.style.scrollBehavior = 'auto';
+        wrap.scrollLeft += step * totalOriginal;
+        wrap.style.scrollBehavior = '';
+      } else if (wrap.scrollLeft >= realZoneEnd + step) {
+        /* Usuário chegou na zona dos clones do FIM → pular para o equivalente real no INÍCIO */
+        wrap.style.scrollBehavior = 'auto';
+        wrap.scrollLeft -= step * totalOriginal;
+        wrap.style.scrollBehavior = '';
+      }
+
+      atualizarSetas();
+    }, 80);
+  }, { passive: true });
+
+  /* Setas nunca desabilitam (loop infinito) */
+  const atualizarSetas = () => {
+    if (!btnPrev || !btnNext) return;
+    btnPrev.disabled = false;
+    btnNext.disabled = false;
+  };
   atualizarSetas();
 
-  /* — Autoplay: avança automaticamente a cada 2 s — */
-  let catAutoplay;
-  const iniciarAutoplay = () => {
-    catAutoplay = setInterval(() => {
-      /* Se chegou ao fim, volta ao início */
-      if (wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 4) {
-        wrap.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        wrap.scrollBy({ left: SCROLL_PASSO, behavior: 'smooth' });
-      }
-      atualizarSetas();
-    }, 2000);
-  };
-  const pararAutoplay = () => clearInterval(catAutoplay);
-
-  iniciarAutoplay();
-  wrap.addEventListener('mouseenter',  pararAutoplay);
-  wrap.addEventListener('mouseleave',  iniciarAutoplay);
-  wrap.addEventListener('touchstart',  pararAutoplay, { passive: true });
-
-  /* — Drag-to-scroll (mouse) — */
-  let isDragging = false, startX, scrollLeft;
+  /* ── Drag-to-scroll com mouse (desktop) ── */
+  let isDragging = false, startX, scrollLeftAtStart;
 
   wrap.addEventListener('mousedown', (e) => {
     isDragging = true;
-    startX = e.pageX - wrap.offsetLeft;
-    scrollLeft = wrap.scrollLeft;
+    startX     = e.pageX - wrap.offsetLeft;
+    scrollLeftAtStart = wrap.scrollLeft;
     wrap.style.userSelect = 'none';
-    wrap.style.cursor = 'grabbing';
-    pararAutoplay();
+    wrap.style.cursor     = 'grabbing';
   });
   wrap.addEventListener('mouseleave', () => { isDragging = false; wrap.style.cursor = ''; });
-  wrap.addEventListener('mouseup',    () => { isDragging = false; wrap.style.userSelect = ''; wrap.style.cursor = ''; iniciarAutoplay(); });
-  wrap.addEventListener('mousemove',  (e) => {
+  wrap.addEventListener('mouseup',    () => {
+    isDragging = false;
+    wrap.style.userSelect = '';
+    wrap.style.cursor     = '';
+  });
+  wrap.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    const x  = e.pageX - wrap.offsetLeft;
-    wrap.scrollLeft = scrollLeft - (x - startX) * 1.2;
-    atualizarSetas();
+    const x = e.pageX - wrap.offsetLeft;
+    wrap.scrollLeft = scrollLeftAtStart - (x - startX) * 1.2;
   });
 
-  /* — Touch events para mobile — */
+  /* ── Touch/swipe para mobile ── */
   let touchStartX = 0;
-  wrap.addEventListener('touchstart',  (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  wrap.addEventListener('touchend',    (e) => {
+  wrap.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  wrap.addEventListener('touchend', (e) => {
     const diff = touchStartX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 30) {
       wrap.scrollBy({ left: diff * 1.5, behavior: 'smooth' });
-      atualizarSetas();
     }
   }, { passive: true });
 };
@@ -2013,18 +2102,24 @@ const initBannerPromo = () => {
   /* — Ir para um slide específico — */
   const irParaBanner = (idx) => {
     atual = (idx + total) % total;
+
+    /* Mover o track (transição suave via CSS transition: transform 0.55s) */
     track.style.transform = `translateX(-${atual * 100}%)`;
+
+    /* Atualizar classe .ativo nos slides para acionar:
+       - opacity fade (slide ativo = 1, inativos = 0.55)
+       - animações de entrada dos textos (tag, título, subtítulo, CTA) */
+    slides.forEach((s, i) => {
+      const eAtivo = i === atual;
+      s.classList.toggle('ativo', eAtivo);
+      s.setAttribute('aria-hidden', eAtivo ? 'false' : 'true');
+    });
 
     /* Atualizar dots */
     dotsWrap?.querySelectorAll('.banner-promo__dot').forEach((d, i) => {
-      const ativo = i === atual;
-      d.classList.toggle('ativo', ativo);
-      d.setAttribute('aria-selected', String(ativo));
-    });
-
-    /* Atualizar aria nos slides */
-    slides.forEach((s, i) => {
-      s.setAttribute('aria-hidden', i !== atual ? 'true' : 'false');
+      const eAtivo = i === atual;
+      d.classList.toggle('ativo', eAtivo);
+      d.setAttribute('aria-selected', String(eAtivo));
     });
   };
 
@@ -2066,7 +2161,7 @@ const initBannerPromo = () => {
     }
   }, { passive: true });
 
-  /* Inicializar estado */
+  /* Inicializar estado — slide 0 ativo (também aplica .ativo nos slides) */
   irParaBanner(0);
 };
 
