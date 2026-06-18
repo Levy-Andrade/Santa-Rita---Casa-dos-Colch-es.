@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhes do Produto — Santa Rita - Casa dos Colchões</title>
+  <meta name="description" content="Veja todos os detalhes, especificações e fotos do produto. Santa Rita - Casa dos Colchões." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== PRODUTO PAGE — estilos exclusivos ===== */
+    .prod-page {
+      min-height: 100svh;
+      background: var(--fundo-page);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 14px 0;
+      font-size: .82rem;
+      color: var(--texto-muted);
+      border-bottom: 1px solid var(--borda);
+      background: var(--branco-puro);
+    }
+    .breadcrumb__inner {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .breadcrumb a {
+      color: var(--azul-santa-rita);
+      font-weight: 500;
+      transition: opacity .2s;
+    }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb__sep { opacity: .4; }
+    .breadcrumb__atual { color: var(--texto-secundario); }
+
+    /* Layout principal do produto */
+    .prod-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 40px 0 64px;
+    }
+    @media (min-width: 860px) {
+      .prod-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+    }
+
+    /* Galeria */
+    .prod-galeria {
+      position: sticky;
+      top: 100px;
+    }
+    .prod-galeria__principal {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: var(--raio-lg);
+      overflow: hidden;
+      background: var(--fundo-cinza-claro);
+      box-shadow: var(--sombra-md);
+      margin-bottom: 16px;
+    }
+    .prod-galeria__principal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .prod-galeria__principal:hover img { transform: scale(1.04); }
+
+    .prod-galeria__thumbs {
+      display: flex;
+      gap: 10px;
+    }
+    .prod-galeria__thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .2s;
+      flex-shrink: 0;
+      background: var(--fundo-cinza-claro);
+    }
+    .prod-galeria__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .prod-galeria__thumb.ativo { border-color: var(--primary-red); }
+    .prod-galeria__thumb:hover { border-color: var(--azul-santa-rita); }
+
+    /* Badge flutuante de tag */
+    .prod-galeria__wrap {
+      position: relative;
+    }
+    .prod-tag-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--primary-red);
+      color: var(--branco-puro);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      z-index: 2;
+    }
+
+    /* Info do produto */
+    .prod-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .prod-info__cat {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--azul-santa-rita);
+      margin-bottom: 10px;
+    }
+
+    .prod-info__titulo {
+      font-family: var(--fonte-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--texto-principal);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    /* Preços */
+    .prod-info__precos {
+      background: linear-gradient(135deg, #fff8f8 0%, #fff 100%);
+      border: 1.5px solid rgba(220,38,38,.15);
+      border-radius: var(--raio);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .prod-info__avista {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary-red);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .prod-info__parcelado {
+      font-size: .9rem;
+      color: var(--texto-secundario);
+    }
+    .prod-info__parcelado strong { color: var(--texto-principal); }
+
+    /* Densidade badge */
+    .prod-densidade {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--azul-santa-rita);
+      color: var(--branco-puro);
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+
+    /* Descrição */
+    .prod-info__descricao {
+      font-size: .95rem;
+      color: var(--texto-secundario);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--borda);
+      padding-bottom: 24px;
+    }
+
+    /* Diferenciais */
+    .prod-diferenciais {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .prod-diferencial {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .85rem;
+      color: var(--texto-secundario);
+      background: var(--fundo-page);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--borda);
+    }
+    .prod-diferencial svg { color: #16A34A; flex-shrink: 0; }
+
+    /* Ficha técnica */
+    .prod-ficha {
+      margin-bottom: 28px;
+    }
+    .prod-ficha__titulo {
+      font-size: .82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--texto-muted);
+      margin-bottom: 14px;
+    }
+    .prod-ficha__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      overflow: hidden;
+    }
+    .prod-ficha__item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--borda);
+      border-right: 1px solid var(--borda);
+    }
+    .prod-ficha__item:nth-child(even) { border-right: none; }
+    .prod-ficha__item:nth-last-child(-n+2) { border-bottom: none; }
+    .prod-ficha__chave {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--texto-muted);
+      margin-bottom: 3px;
+    }
+    .prod-ficha__valor {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--texto-principal);
+    }
+
+    /* Ações */
+    .prod-acoes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .prod-acoes .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 16px 24px;
+      font-size: 1rem;
+    }
+
+    /* Garantias strip */
+    .prod-garantias {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+      border-top: 1px solid var(--borda);
+      margin-top: 24px;
+    }
+    .prod-garantia {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      color: var(--texto-secundario);
+    }
+    .prod-garantia svg { color: var(--azul-santa-rita); }
+
+    /* Seção produtos relacionados */
+    .prod-relacionados {
+      padding: 56px 0 80px;
+      background: var(--fundo-page);
+      border-top: 1px solid var(--borda);
+    }
+
+    /* Skeleton */
+    .prod-skeleton {
+      padding: 56px 0;
+    }
+    .prod-skeleton .skeleton-bloco {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeleton-anim 1.4s infinite;
+      border-radius: var(--raio);
+    }
+    @keyframes skeleton-anim {
+      from { background-position: 200% 0; }
+      to   { background-position: -200% 0; }
+    }
+
+    /* Erro */
+    .prod-erro {
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .prod-erro h2 {
+      font-family: var(--fonte-display);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: var(--texto-principal);
+    }
+    .prod-erro p {
+      color: var(--texto-secundario);
+      margin-bottom: 28px;
+    }
+
+    /* WhatsApp btn especial */
+    .btn--whatsapp {
+      background: #25D366;
+      color: #fff;
+      border-color: #25D366;
+    }
+    .btn--whatsapp:hover, .btn--whatsapp:focus-visible {
+      background: #1EBE59;
+      border-color: #1EBE59;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,.35);
+    }
+
+    /* Responsivo mobile - galeria não sticky */
+    @media (max-width: 859px) {
+      .prod-galeria { position: static; }
+    }
+  </style>
+</head>
+<body class="prod-page">
+
+  <!-- ===== TOPBAR ===== -->
+  <div class="topbar" role="banner">
+    <div class="topbar__inner container">
+      <span class="topbar__msg">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        Seg–Sáb: 08h às 18h &nbsp;|&nbsp; Dom: 09h às 13h
+      </span>
+      <div class="topbar__contacts">
+        <a href="https://wa.me/5599701-7188" class="topbar__phone" target="_blank" rel="noopener">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+          (99) 99701-7188
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER SIMPLIFICADO ===== -->
+  <header class="header" id="header">
+    <div class="header__inner container">
+      <a href="index.html" class="header__logo" aria-label="Voltar à página inicial">
+        <span class="logo__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="8" fill="var(--primary-red)"/>
+            <path d="M7 14h22v2H7zM7 18h22v2H7zM10 22h16v4H10z" fill="white"/>
+            <path d="M10 10h16v4H10z" fill="white" opacity=".7"/>
+          </svg>
+        </span>
+        <span class="logo__text">
+          <strong>Santa Rita</strong>
+          <small>Casa dos Colchões</small>
+        </span>
+      </a>
+      <a href="index.html#vitrine" class="btn btn--ghost btn--sm" style="flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Voltar ao Catálogo
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="breadcrumb">
+    <div class="breadcrumb__inner container">
+      <a href="index.html">Início</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <a href="index.html#vitrine">Catálogo</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span class="breadcrumb__atual" id="breadcrumb-nome">Carregando...</span>
+    </div>
+  </div>
+
+  <main id="prod-main">
+    <!-- Conteúdo preenchido dinamicamente via JS -->
+    <div class="container">
+      <div class="prod-skeleton" id="prod-skeleton" aria-label="Carregando produto...">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:40px 0">
+          <div>
+            <div class="skeleton-bloco" style="height:380px;margin-bottom:16px"></div>
+            <div style="display:flex;gap:10px">
+              <div class="skeleton-bloco" style="width:72px;height:72px;border-radius:8px"></div>
+              <div class="skeleton-bloco" style="width:72px;height:72px;border-radius:8px"></div>
+              <div class="skeleton-bloco" style="width:72px;height:72px;border-radius:8px"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;padding-top:8px">
+            <div class="skeleton-bloco" style="height:20px;width:120px"></div>
+            <div class="skeleton-bloco" style="height:48px"></div>
+            <div class="skeleton-bloco" style="height:100px;border-radius:10px"></div>
+            <div class="skeleton-bloco" style="height:80px"></div>
+            <div class="skeleton-bloco" style="height:56px;border-radius:10px"></div>
+            <div class="skeleton-bloco" style="height:56px;border-radius:10px"></div>
+          </div>
+        </div>
+      </div>
+      <div id="prod-conteudo" hidden></div>
+    </div>
+
+    <!-- Produtos relacionados -->
+    <div class="prod-relacionados" id="prod-relacionados" hidden>
+      <div class="container">
+        <header class="section-header">
+          <h2 class="section-titulo">Você também pode gostar</h2>
+          <p class="section-subtitulo">Outros produtos selecionados para você.</p>
+        </header>
+        <div class="vitrine__grid" id="prod-relacionados-grid" role="list"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER COMPACTO ===== -->
+  <footer class="footer footer--compact" role="contentinfo">
+    <div class="container footer__bottom-inner">
+      <p>&copy; <span id="ano-footer"></span> Santa Rita - Casa dos Colchões. Todos os direitos reservados.</p>
+      <p>
+        <a href="https://wa.me/5599701-7188" style="color:var(--primary-red);font-weight:600" target="_blank" rel="noopener">
+          Fale no WhatsApp: (99) 99701-7188
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a href="https://wa.me/5599701-7188" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+  </a>
+
+  <script>
+    'use strict';
+
+    /* ===== BASE DE DADOS DE PRODUTOS (igual ao script.js principal) ===== */
+    const PRODUTOS_MOCK = [
+      { id:1, titulo:'Colchão Molas Pocket Premium D45', categoria:'colchao', catNome:'Colchões', preco:2890, destaque:true, tag:'Mais Vendido', densidade:'D45',
+        img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80',
+        descricao:'Colchão com sistema de molas ensacadas (Pocket), espuma D45 e pillow top com enchimento de fibra siliconada. Proporciona apoio independente para cada região do corpo, evitando o efeito de transferência de movimento — ideal para casais.',
+        diferenciais:['Tecnologia Molas Pocket','Espuma Premium D45','Pillow Top com Fibra Siliconada','Capa com Toque Seda','Garantia 5 anos'],
+        specs:{ 'Tecnologia':'Molas Pocket', 'Densidade':'D45', 'Revestimento':'Toque Seda', 'Tamanho':'Casal (138×188 cm)', 'Altura':'28 cm', 'Garantia':'5 anos' } },
+      { id:2, titulo:'Cama Box Baú Queen Size Cinza', categoria:'cama', catNome:'Cama', preco:1790, destaque:true, tag:'Lançamento', densidade:null,
+        img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=900&q=80',
+        descricao:'Base box com baú em tecido suede cinza grafite de alta durabilidade. Estrutura robusta em MDF de 15mm com pés cromados ajustáveis e sistema de abertura por pistão a gás silencioso — uma solução elegante para quem precisa de espaço extra de armazenamento.',
+        diferenciais:['Baú com 300L de capacidade','Abertura fácil por pistão a gás','MDF 15mm anti-umidade','Pés cromados ajustáveis','Garantia 2 anos'],
+        specs:{ 'Material':'MDF 15mm + Suede', 'Cor':'Cinza Grafite', 'Abertura':'Pistão a gás', 'Tamanho':'Queen (158×198 cm)', 'Capacidade do Baú':'300 litros', 'Garantia':'2 anos' } },
+      { id:3, titulo:'Sofá Retrátil 3 Lugares Veludo', categoria:'sofa', catNome:'Sofá', preco:3490, destaque:true, tag:'Oferta', densidade:'D33',
+        img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80',
+        descricao:'Sofá retrátil e reclinável 3 lugares em veludo premium de alta gramatura. Espuma D33 nos assentos com molas ensacadas, madeira maciça de eucalipto na estrutura e pés em madeira escurecida com acabamento em verniz fosco.',
+        diferenciais:['Veludo premium antipelúcia','Espuma D33 certificada','Estrutura em madeira maciça','Mecanismo retrátil e reclinável','Garantia 1 ano'],
+        specs:{ 'Tecido':'Veludo Premium', 'Espuma':'D33', 'Mecanismo':'Retrátil e reclinável', 'Largura':'220 cm', 'Profundidade':'95 cm', 'Garantia':'1 ano' } },
+      { id:4, titulo:'Cabeceira Estofada Dubai King', categoria:'cabeceira', catNome:'Cabeceira', preco:980, destaque:true, tag:null, densidade:null,
+        img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80',
+        descricao:'Cabeceira estofada com capitonê em couro sintético marrom de alta qualidade, resistente a arranhões e de fácil limpeza. Painel com iluminação LED warm integrada e estrutura em MDF com suporte de parede incluso.',
+        diferenciais:['Couro ecológico antiarranhão','LED warm integrado','Estrutura MDF 15mm','Suporte para parede incluso','Garantia 1 ano'],
+        specs:{ 'Tecido':'Couro Ecológico', 'Detalhe':'Capitonê', 'Iluminação':'LED Warm 3000K', 'Tamanho':'King (193 cm)', 'Altura':'130 cm', 'Garantia':'1 ano' } },
+      { id:5, titulo:'Puff Redondo Ottoman Premium', categoria:'puff', catNome:'Puff', preco:540, destaque:true, tag:null, densidade:null,
+        img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80',
+        descricao:'Puff redondo estofado em veludo rosê com estrutura em madeira de lei lacada. Multi-uso: perfeito como pé de descanso, mesinha de apoio ou assento extra. Espuma D26 de alta resistência.',
+        diferenciais:['Veludo lavável','Estrutura madeira de lei','Multi-uso','Espuma D26 resistente','Capacidade 150 kg'],
+        specs:{ 'Tecido':'Veludo', 'Cor':'Rosê Champagne', 'Diâmetro':'60 cm', 'Altura':'38 cm', 'Espuma':'D26', 'Capacidade':'150 kg' } },
+      { id:6, titulo:'Travesseiro NASA Viscoelástico', categoria:'travesseiro', catNome:'Travesseiro', preco:289, destaque:true, tag:'Top Avaliado', densidade:'D55',
+        img:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=900&q=80',
+        descricao:'Travesseiro em espuma viscoelástica com efeito memória (memory foam) de densidade D55. Absorve e distribui a pressão da cabeça e pescoço, reduzindo dores cervicais. Capa removível em mistura de bambu com algodão, macia e antibacteriana.',
+        diferenciais:['Memory Foam densidade D55','Capa de bambu + algodão','Capa removível e lavável','Antibacteriano e antialérgico','Indicado por fisioterapeutas'],
+        specs:{ 'Material':'Memory Foam', 'Capa':'Bambu + Algodão', 'Altura':'12 cm', 'Densidade':'D55', 'Largura':'50 cm', 'Comprimento':'70 cm' } },
+      { id:7, titulo:'Almofada Decorativa Kit 3 Peças', categoria:'almofada', catNome:'Almofada', preco:199, destaque:true, tag:null, densidade:null,
+        img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80',
+        descricao:'Kit com 3 almofadas decorativas em tecidos diferentes: veludo, linho e chenille. Enchimento em fibra siliconada antialérgica de alta resiliência. Capas removíveis e laváveis na máquina. Combinação perfeita para ambientes modernos e aconchegantes.',
+        diferenciais:['3 tecidos exclusivos','Fibra antialérgica','Capas laváveis na máquina','Alta resiliência','Resistente ao desbotamento'],
+        specs:{ 'Tecidos':'Veludo, Linho, Chenille', 'Enchimento':'Fibra siliconada', 'Tamanhos':'45×45 / 40×60 cm', 'Capas':'Removíveis e laváveis', 'Peças':'3 unidades' } },
+      { id:8, titulo:'Poltrona Decorativa Eames Retrô', categoria:'poltrona', catNome:'Poltrona', preco:1290, destaque:true, tag:'Exclusivo', densidade:'D28',
+        img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80',
+        descricao:'Poltrona com design clássico inspirado no estilo mid-century. Base giratória em madeira escurecida com verniz satiné, assento e encosto em couro PU caramelo com espuma D28 de alta densidade.',
+        diferenciais:['Design mid-century autêntico','Couro PU de alta qualidade','Base giratória 360°','Espuma D28 confortável','Garantia 1 ano'],
+        specs:{ 'Estilo':'Mid-Century Modern', 'Estofamento':'Couro PU', 'Cor':'Caramelo', 'Base':'Madeira giratória', 'Espuma':'D28', 'Garantia':'1 ano' } },
+      { id:9, titulo:'Colchão Ortopédico D33 Casal', categoria:'colchao', catNome:'Colchões', preco:1490, destaque:false, tag:'Ortopédico', densidade:'D33',
+        img:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=900&q=80',
+        descricao:'Colchão ortopédico com molas bonell e espuma D33 lateral. Capa em malha antialérgica com tratamento antibactericida. Ideal para quem sofre de dores nas costas.',
+        diferenciais:['Molas Bonell ortopédicas','Espuma D33 lateral','Tratamento antibacteriano','Capa antialérgica','Garantia 3 anos'],
+        specs:{ 'Tecnologia':'Molas Bonell', 'Densidade':'D33', 'Tratamento':'Antibacteriano', 'Tamanho':'Casal (138×188 cm)', 'Altura':'22 cm', 'Garantia':'3 anos' } },
+      { id:10, titulo:'Sofá Chaise Long Canto Direito', categoria:'sofa', catNome:'Sofá', preco:4890, destaque:false, tag:null, densidade:'D26',
+        img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80',
+        descricao:'Sofá com chaise no canto direito em tecido suede grafite. Espuma D26 nos assentos com pés palito em madeira natural. Perfeito para salas grandes.',
+        diferenciais:['Chaise long integrada','Suede antipelúcia','Pés em madeira natural','Espuma D26','Garantia 1 ano'],
+        specs:{ 'Tecido':'Suede Grafite', 'Espuma':'D26', 'Pés':'Madeira natural', 'Largura total':'295 cm', 'Profundidade':'170 cm', 'Garantia':'1 ano' } },
+      { id:11, titulo:'Cama Infantil Proteção Total', categoria:'cama', catNome:'Cama', preco:1190, destaque:false, tag:'Infantil', densidade:null,
+        img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=900&q=80',
+        descricao:'Cama infantil com grades de proteção laterais em MDF lacado. Sem arestas vivas, pinturas atóxicas e certificação INMETRO. Disponível em rosa, azul e branco.',
+        diferenciais:['Grades de proteção laterais','Pintura atóxica certificada','INMETRO','Sem arestas vivas','Garantia 2 anos'],
+        specs:{ 'Material':'MDF Lacado', 'Pintura':'Atóxica', 'Proteção':'Grades laterais', 'Tamanho':'Solteiro (88×188 cm)', 'Certificação':'INMETRO' } },
+      { id:12, titulo:'Cabeceira Painel Ripado Natural', categoria:'cabeceira', catNome:'Cabeceira', preco:1380, destaque:false, tag:'Tendência', densidade:null,
+        img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80',
+        descricao:'Painel ripado em madeira tauari natural com acabamento cerúleo. Montagem fácil na parede, inclui iluminação LED warm integrada nas bordas.',
+        diferenciais:['Madeira tauari natural','LED warm 3000K incluso','Montagem sem obra','Acabamento cerúleo exclusivo','Garantia 1 ano'],
+        specs:{ 'Material':'Tauari Natural', 'Acabamento':'Cerúleo', 'LED':'Warm 3000K', 'Largura':'200 cm', 'Altura':'120 cm' } },
+    ];
+
+    const WHATSAPP = '5599701-7188';
+
+    const formatarPreco = (v) =>
+      new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL' }).format(v);
+
+    /* ===== CAPTURAR ID DA URL ===== */
+    const params = new URLSearchParams(window.location.search);
+    const produtoId = Number(params.get('id'));
+    const produto = PRODUTOS_MOCK.find(p => p.id === produtoId);
+
+    /* ===== RENDERIZAR ===== */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('ano-footer').textContent = new Date().getFullYear();
+
+      // Scroll para o topo
+      window.scrollTo(0, 0);
+
+      const skeleton  = document.getElementById('prod-skeleton');
+      const conteudo  = document.getElementById('prod-conteudo');
+      const relacionadosWrap = document.getElementById('prod-relacionados');
+
+      // Simula loading mínimo para UX
+      setTimeout(() => {
+        skeleton.hidden = true;
+
+        if (!produto) {
+          conteudo.hidden = false;
+          conteudo.innerHTML = `
+            <div class="prod-erro">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#E5E7EB;margin:0 auto 20px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <h2>Produto não encontrado</h2>
+              <p>O produto que você procura não existe ou foi removido do catálogo.</p>
+              <a href="index.html#vitrine" class="btn btn--primario">Ver Catálogo Completo</a>
+            </div>`;
+          return;
+        }
+
+        // Atualizar meta/título
+        document.title = `${produto.titulo} — Santa Rita - Casa dos Colchões`;
+        document.querySelector('meta[name="description"]').content =
+          `${produto.titulo} por ${formatarPreco(produto.preco)}. ${produto.descricao.substring(0, 120)}...`;
+
+        // Breadcrumb
+        document.getElementById('breadcrumb-nome').textContent = produto.titulo;
+
+        // Imagens adicionais (usamos variações da mesma URL com parâmetros diferentes para demo)
+        const imgs = [
+          produto.img,
+          produto.img.replace('w=900', 'w=900').replace('q=80', 'q=75'),
+          produto.img.replace('w=900', 'w=900').replace('q=80', 'q=70'),
+        ];
+
+        // Specs HTML
+        const specsHTML = Object.entries(produto.specs || {}).map(([k, v]) => `
+          <div class="prod-ficha__item">
+            <div class="prod-ficha__chave">${k}</div>
+            <div class="prod-ficha__valor">${v}</div>
+          </div>`).join('');
+
+        // Diferenciais HTML
+        const difsHTML = (produto.diferenciais || []).map(d => `
+          <div class="prod-diferencial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            ${d}
+          </div>`).join('');
+
+        // Badge densidade
+        const densidadeHTML = produto.densidade ? `
+          <div class="prod-densidade">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+            Densidade: ${produto.densidade}
+          </div>` : '';
+
+        // Mensagem WhatsApp personalizada
+        const msgWA = encodeURIComponent(
+          `Olá! Vi o produto *${produto.titulo}* no site de vocês e gostaria de mais informações e disponibilidade de estoque. Preço: ${formatarPreco(produto.preco)}`
+        );
+        const msgCompraWA = encodeURIComponent(
+          `Olá! Quero comprar o *${produto.titulo}* (${formatarPreco(produto.preco)}). Podem me ajudar com as formas de pagamento e prazo de entrega?`
+        );
+
+        conteudo.hidden = false;
+        conteudo.innerHTML = `
+          <div class="prod-layout">
+
+            <!-- Galeria -->
+            <div class="prod-galeria">
+              <div class="prod-galeria__wrap">
+                ${produto.tag ? `<div class="prod-tag-badge">${produto.tag}</div>` : ''}
+                <div class="prod-galeria__principal" id="galeria-principal">
+                  <img src="${imgs[0]}" alt="${produto.titulo}" width="900" height="675" id="img-principal" />
+                </div>
+              </div>
+              <div class="prod-galeria__thumbs" role="list" aria-label="Outras fotos do produto">
+                ${imgs.map((src, i) => `
+                  <div class="prod-galeria__thumb${i===0?' ativo':''}" role="listitem" tabindex="0"
+                    onclick="trocarFoto('${src}', this)"
+                    onkeydown="if(event.key==='Enter'||event.key===' ')trocarFoto('${src}',this)"
+                    aria-label="Ver foto ${i+1}">
+                    <img src="${src}" alt="${produto.titulo} — foto ${i+1}" loading="lazy" />
+                  </div>`).join('')}
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="prod-info">
+              <div class="prod-info__cat">${produto.catNome}</div>
+              <h1 class="prod-info__titulo">${produto.titulo}</h1>
+
+              ${densidadeHTML}
+
+              <div class="prod-info__precos">
+                <div class="prod-info__avista">${formatarPreco(produto.preco)}</div>
+                <div class="prod-info__parcelado">
+                  ou <strong>10× de ${formatarPreco(produto.preco / 10)}</strong> sem juros no cartão
+                </div>
+              </div>
+
+              <p class="prod-info__descricao">${produto.descricao}</p>
+
+              <div class="prod-diferenciais">${difsHTML}</div>
+
+              <div class="prod-ficha">
+                <div class="prod-ficha__titulo">Ficha Técnica</div>
+                <div class="prod-ficha__grid">${specsHTML}</div>
+              </div>
+
+              <div class="prod-acoes">
+                <a
+                  href="https://wa.me/${WHATSAPP}?text=${msgCompraWA}"
+                  class="btn btn--primario"
+                  target="_blank" rel="noopener"
+                  aria-label="Comprar ${produto.titulo} via WhatsApp"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+                  Comprar via WhatsApp
+                </a>
+                <a
+                  href="https://wa.me/${WHATSAPP}?text=${msgWA}"
+                  class="btn btn--whatsapp"
+                  target="_blank" rel="noopener"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+                  Tirar Dúvidas no WhatsApp
+                </a>
+                <a href="index.html#vitrine" class="btn btn--outline-dark">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                  Ver mais produtos
+                </a>
+              </div>
+
+              <div class="prod-garantias">
+                <div class="prod-garantia">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Produto Certificado
+                </div>
+                <div class="prod-garantia">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  Entrega Grátis na Cidade
+                </div>
+                <div class="prod-garantia">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                  Troca em 30 dias
+                </div>
+                <div class="prod-garantia">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                  10× sem juros
+                </div>
+              </div>
+            </div>
+
+          </div>
+        `;
+
+        // Produtos relacionados (mesma categoria, excluindo o atual)
+        const relacionados = PRODUTOS_MOCK
+          .filter(p => p.categoria === produto.categoria && p.id !== produto.id)
+          .slice(0, 4);
+
+        if (relacionados.length > 0) {
+          relacionadosWrap.hidden = false;
+          const grid = document.getElementById('prod-relacionados-grid');
+          grid.innerHTML = relacionados.map(p => `
+            <article class="produto-card" role="listitem" style="cursor:pointer" onclick="window.location.href='produto.html?id=${p.id}'" aria-label="${p.titulo} — ${formatarPreco(p.preco)}">
+              <div class="produto-card__img-wrap">
+                <img src="${p.img}" alt="${p.titulo}" loading="lazy" width="600" height="450" />
+                ${p.tag ? `<span class="produto-card__tag">${p.tag}</span>` : ''}
+              </div>
+              <div class="produto-card__corpo">
+                <p class="produto-card__cat">${p.catNome}</p>
+                <h3 class="produto-card__titulo">${p.titulo}</h3>
+                <div class="produto-card__precos">
+                  <div class="produto-card__avista">${formatarPreco(p.preco)}</div>
+                  <div class="produto-card__parcelado">ou 10× de ${formatarPreco(p.preco/10)} sem juros</div>
+                </div>
+                <div class="produto-card__ver" aria-hidden="true">
+                  Ver detalhes
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+              </div>
+            </article>`).join('');
+        }
+
+      }, 600);
+    });
+
+    /* ===== Troca de foto na galeria ===== */
+    function trocarFoto(src, thumbEl) {
+      const imgPrincipal = document.getElementById('img-principal');
+      if (imgPrincipal) imgPrincipal.src = src;
+      document.querySelectorAll('.prod-galeria__thumb').forEach(t => t.classList.remove('ativo'));
+      thumbEl.classList.add('ativo');
+    }
+  </script>
+</body>
+</html>

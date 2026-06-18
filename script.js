@@ -64,6 +64,7 @@ const PRODUTOS_MOCK = [
     preco: 2890,
     destaque: true,
     tag: 'Mais Vendido',
+    densidade: 'D45',
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
     descricao: 'Colchão com sistema de molas ensacadas (Pocket), espuma D45 e pillow top com enchimento de fibra siliconada. Proporciona apoio independente para cada região do corpo.',
     specs: { 'Tecnologia': 'Molas Pocket', 'Densidade': 'D45', 'Revestimento': 'Toque Seda', 'Tamanho': 'Casal (138×188)', 'Garantia': '5 anos' },
@@ -76,6 +77,7 @@ const PRODUTOS_MOCK = [
     preco: 1790,
     destaque: true,
     tag: 'Lançamento',
+    densidade: null,
     img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=75',
     descricao: 'Base box com baú em tecido suede cinza grafite. Estrutura em MDF com pés cromados e sistema de abertura por pistão a gás.',
     specs: { 'Material': 'MDF + Suede', 'Cor': 'Cinza Grafite', 'Abertura': 'Pistão a gás', 'Tamanho': 'Queen (158×198)', 'Garantia': '2 anos' },
@@ -88,6 +90,7 @@ const PRODUTOS_MOCK = [
     preco: 3490,
     destaque: true,
     tag: 'Oferta',
+    densidade: 'D33',
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
     descricao: 'Sofá retrátil e reclinável 3 lugares em veludo premium. Espuma D33 nos assentos, madeira maciça na estrutura e pés em madeira escurecida.',
     specs: { 'Tecido': 'Veludo Premium', 'Espuma': 'D33', 'Mecanismo': 'Retrátil e reclinável', 'Largura': '220 cm', 'Garantia': '1 ano' },
@@ -100,6 +103,7 @@ const PRODUTOS_MOCK = [
     preco: 980,
     destaque: true,
     tag: null,
+    densidade: null,
     img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=75',
     descricao: 'Cabeceira estofada com capitonê em couro sintético marrom. Painel com iluminação LED integrada, estrutura em MDF com suporte de parede incluso.',
     specs: { 'Tecido': 'Couro Ecológico', 'Detalhe': 'Capitonê', 'Iluminação': 'LED integrado', 'Tamanho': 'King (193 cm)', 'Garantia': '1 ano' },
@@ -112,6 +116,7 @@ const PRODUTOS_MOCK = [
     preco: 540,
     destaque: true,
     tag: null,
+    densidade: null,
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
     descricao: 'Puff redondo estofado em veludo rosê com estrutura em madeira. Multi-uso: serve como pé de descanso, mesa de apoio ou assento extra.',
     specs: { 'Tecido': 'Veludo', 'Cor': 'Rosê Champagne', 'Diâmetro': '60 cm', 'Altura': '38 cm', 'Capacidade': '150 kg' },
@@ -124,6 +129,7 @@ const PRODUTOS_MOCK = [
     preco: 289,
     destaque: true,
     tag: 'Top Avaliado',
+    densidade: 'D45',
     img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=75',
     descricao: 'Travesseiro em espuma viscoelástica com efeito memória (memory foam). Absorve e distribui a pressão da cabeça e pescoço, reduzindo dores cervicais.',
     specs: { 'Material': 'Memory Foam', 'Capa': 'Bambu + Algodão', 'Altura': '12 cm', 'Densidade': 'D55', 'Higienização': 'Capa removível' },
@@ -136,6 +142,7 @@ const PRODUTOS_MOCK = [
     preco: 199,
     destaque: true,
     tag: null,
+    densidade: null,
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
     descricao: 'Kit com 3 almofadas decorativas em tecidos diferentes: veludo, linho e chenille. Enchimento em fibra siliconada antialérgica. Capas removíveis e laváveis.',
     specs: { 'Tecidos': 'Veludo, Linho, Chenille', 'Enchimento': 'Fibra siliconada', 'Tamanhos': '45×45 / 40×60 cm', 'Capas': 'Removíveis', 'Peças': '3 unidades' },
@@ -148,6 +155,7 @@ const PRODUTOS_MOCK = [
     preco: 1290,
     destaque: true,
     tag: 'Exclusivo',
+    densidade: 'D28',
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
     descricao: 'Poltrona com design clássico inspirado no estilo mid-century. Base giratória em madeira escurecida, assento e encosto em couro PU caramelo com espuma D28.',
     specs: { 'Estilo': 'Mid-Century Modern', 'Estofamento': 'Couro PU', 'Cor': 'Caramelo', 'Base': 'Madeira giratória', 'Garantia': '1 ano' },
@@ -160,6 +168,7 @@ const PRODUTOS_MOCK = [
     preco: 1490,
     destaque: false,
     tag: 'Ortopédico',
+    densidade: 'D33',
     img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=75',
     descricao: 'Colchão ortopédico com molas bonell e espuma D33 lateral. Capa em malha antialérgica com tratamento antibactericida. Ideal para quem sofre de dores nas costas.',
     specs: { 'Tecnologia': 'Molas Bonell', 'Densidade': 'D33', 'Tratamento': 'Antibacteriano', 'Tamanho': 'Casal (138×188)', 'Garantia': '3 anos' },
@@ -172,6 +181,7 @@ const PRODUTOS_MOCK = [
     preco: 4890,
     destaque: false,
     tag: null,
+    densidade: 'D28',
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
     descricao: 'Sofá com chaise no canto direito em tecido suede grafite. Espuma D26 nos assentos, pés palito em madeira natural. Perfeito para salas grandes.',
     specs: { 'Tecido': 'Suede Grafite', 'Espuma': 'D26', 'Pés': 'Madeira natural', 'Largura total': '295 cm', 'Garantia': '1 ano' },
@@ -184,6 +194,7 @@ const PRODUTOS_MOCK = [
     preco: 1190,
     destaque: false,
     tag: 'Infantil',
+    densidade: null,
     img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=75',
     descricao: 'Cama infantil com grades de proteção laterais em MDF lacado. Sem arestas vivas, pinturas atóxicas e certificação INMETRO. Disponível em rosa, azul e branco.',
     specs: { 'Material': 'MDF Lacado', 'Pintura': 'Atóxica', 'Proteção': 'Grades laterais', 'Tamanho': 'Solteiro (88×188)', 'Certificação': 'INMETRO' },
@@ -196,6 +207,7 @@ const PRODUTOS_MOCK = [
     preco: 1380,
     destaque: false,
     tag: 'Tendência',
+    densidade: null,
     img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=75',
     descricao: 'Painel ripado em madeira tauari natural com acabamento cerúleo. Montagem fácil na parede, inclui iluminação LED warm integrada nas bordas.',
     specs: { 'Material': 'Tauari Natural', 'Acabamento': 'Cerúleo', 'LED': 'Warm 3000K', 'Largura': '200 cm', 'Altura': '120 cm' },
@@ -261,6 +273,8 @@ const State = {
   favoritos:        [],  // [id, id, ...]
   categoriaSelecionada: 'todos',
   filtroPrecoMax:   5000,
+  filtroDensidade:  'todas',
+  filtroOrdenacao:  'padrao',
   mostrandoTodos:   false,
   depoimentoAtual:  0,
   depTotal:         DEPOIMENTOS_DATA.length,
@@ -331,6 +345,20 @@ const API = {
     }
     if (filtros.precoMax) {
       lista = lista.filter(p => p.preco <= filtros.precoMax);
+    }
+    // Filtro densidade
+    if (filtros.densidade && filtros.densidade !== 'todas') {
+      if (filtros.densidade === 'molas') {
+        lista = lista.filter(p => p.densidade === 'molas' || (p.specs && Object.values(p.specs).some(v => v.toLowerCase().includes('pocket'))));
+      } else {
+        lista = lista.filter(p => p.densidade === filtros.densidade);
+      }
+    }
+    // Ordenação
+    if (filtros.ordenacao === 'menor') {
+      lista = lista.sort((a, b) => a.preco - b.preco);
+    } else if (filtros.ordenacao === 'maior') {
+      lista = lista.sort((a, b) => b.preco - a.preco);
     }
     return lista;
     /*
@@ -500,22 +528,16 @@ const initHeader = () => {
   // Botão login
   document.getElementById('btn-login')?.addEventListener('click', () => abrirModal('modal-login'));
 
-  // Botão carrinho
-  document.getElementById('btn-carrinho')?.addEventListener('click', () => {
-    if (State.carrinho.length === 0) {
-      mostrarToast('Seu carrinho está vazio.', 'info');
-    } else {
-      mostrarToast(`Você tem ${State.carrinho.length} item(ns) no carrinho.`, 'info');
-    }
+  // Botão carrinho → abre drawer
+  document.getElementById('btn-carrinho')?.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    if (typeof abrirDrawer === 'function') abrirDrawer('carrinho');
   });
 
-  // Botão favoritos
-  document.getElementById('btn-favoritos')?.addEventListener('click', () => {
-    if (State.favoritos.length === 0) {
-      mostrarToast('Você ainda não tem favoritos.', 'info');
-    } else {
-      mostrarToast(`Você tem ${State.favoritos.length} favorito(s).`, 'info');
-    }
+  // Botão favoritos → abre drawer
+  document.getElementById('btn-favoritos')?.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    if (typeof abrirDrawer === 'function') abrirDrawer('favoritos');
   });
 };
 
@@ -618,6 +640,8 @@ const renderizarVitrine = async () => {
     produtos = await API.carregarProdutos({
       categoria: State.categoriaSelecionada !== 'todos' ? State.categoriaSelecionada : undefined,
       precoMax: State.filtroPrecoMax,
+      densidade: State.filtroDensidade,
+      ordenacao: State.filtroOrdenacao,
     });
   } catch (err) {
     console.error('[Vitrine]', err);
@@ -695,22 +719,23 @@ const renderizarVitrine = async () => {
       </div>
     `;
 
-    // Click no card → modal produto
+    // Click no card → nova aba produto.html
     card.addEventListener('click', (e) => {
       if (e.target.closest('.produto-card__fav')) return;
-      abrirModalProduto(produto);
+      window.open(`produto.html?id=${produto.id}`, '_blank', 'noopener');
     });
     card.addEventListener('keydown', (e) => {
       if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.produto-card__fav')) {
         e.preventDefault();
-        abrirModalProduto(produto);
+        window.open(`produto.html?id=${produto.id}`, '_blank', 'noopener');
       }
     });
 
-    // Click favorito
+    // Click favorito — usa window.toggleFavorito para permitir override
     card.querySelector('.produto-card__fav').addEventListener('click', (e) => {
       e.stopPropagation();
-      toggleFavorito(produto.id, e.currentTarget);
+      const fn = window.toggleFavorito || toggleFavorito;
+      fn(produto.id, e.currentTarget);
     });
 
     grid.appendChild(card);
@@ -1109,6 +1134,18 @@ const initFiltros = () => {
     renderizarVitrine();
   });
 
+  // Filtro densidade (select) — NOVO
+  document.getElementById('filtro-densidade')?.addEventListener('change', (e) => {
+    State.filtroDensidade = e.target.value;
+    renderizarVitrine();
+  });
+
+  // Filtro ordenação (select) — NOVO
+  document.getElementById('filtro-ordenacao')?.addEventListener('change', (e) => {
+    State.filtroOrdenacao = e.target.value;
+    renderizarVitrine();
+  });
+
   // Filtro preço (range)
   const rangePreco = document.getElementById('filtro-preco');
   const labelPreco = document.getElementById('filtro-preco-valor');
@@ -1146,14 +1183,20 @@ const initFiltros = () => {
 window.limparFiltros = () => {
   State.categoriaSelecionada = 'todos';
   State.filtroPrecoMax = 5000;
+  State.filtroDensidade = 'todas';
+  State.filtroOrdenacao = 'padrao';
 
-  const filtroCat = document.getElementById('filtro-categoria');
-  const filtroPreco = document.getElementById('filtro-preco');
-  const labelPreco = document.getElementById('filtro-preco-valor');
+  const filtroCat      = document.getElementById('filtro-categoria');
+  const filtroPreco    = document.getElementById('filtro-preco');
+  const labelPreco     = document.getElementById('filtro-preco-valor');
+  const filtroDens     = document.getElementById('filtro-densidade');
+  const filtroOrdenacao = document.getElementById('filtro-ordenacao');
 
-  if (filtroCat) filtroCat.value = 'todos';
-  if (filtroPreco) filtroPreco.value = 5000;
-  if (labelPreco) labelPreco.textContent = 'R$ 5.000';
+  if (filtroCat)       filtroCat.value = 'todos';
+  if (filtroPreco)     filtroPreco.value = 5000;
+  if (labelPreco)      labelPreco.textContent = 'R$ 5.000';
+  if (filtroDens)      filtroDens.value = 'todas';
+  if (filtroOrdenacao) filtroOrdenacao.value = 'padrao';
 
   document.querySelectorAll('.cat-card').forEach(c => {
     c.classList.remove('ativa');
@@ -1777,9 +1820,359 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filtros.precoMax) {
       resultado = resultado.filter(p => p.preco <= filtros.precoMax);
     }
+    if (filtros.densidade && filtros.densidade !== 'todas') {
+      if (filtros.densidade === 'molas') {
+        resultado = resultado.filter(p => p.densidade === 'molas' || (p.specs && Object.values(p.specs).some(v => String(v).toLowerCase().includes('pocket'))));
+      } else {
+        resultado = resultado.filter(p => p.densidade === filtros.densidade);
+      }
+    }
+    if (filtros.ordenacao === 'menor') resultado = resultado.sort((a, b) => a.preco - b.preco);
+    else if (filtros.ordenacao === 'maior') resultado = resultado.sort((a, b) => b.preco - a.preco);
     return resultado;
   };
 });
 
 // Tornar fecharDrawer global (usada em onclick inline)
 window.fecharDrawer = fecharDrawer;
+/* =====================================================
+   MELHORIAS v2 — Santa Rita Casa dos Colchões
+   =====================================================
+   A. Stats Strip    — sem JS necessário (só CSS)
+   B. Categorias     — slider reescrito com setas + imagens de fundo
+   C. Banner Promo   — carrossel full-width com autoplay, dots, touch
+   D. Favoritos/Carrinho — já implementado via Drawer, garantindo
+                           que o toggleFavorito e adicionarAoCarrinho
+                           sempre gravem no localStorage
+   ===================================================== */
+
+/* ===================================================
+   B. SLIDER DE CATEGORIAS — refatoração completa
+   =================================================== */
+
+/**
+ * Imagens de fundo para cada categoria.
+ * Troque pelas URLs reais ou deixe null para usar só o gradiente CSS.
+ */
+const CATEGORIAS_IMAGES = {
+  colchao:     'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70',
+  cama:        'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=70',
+  sofa:        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=70',
+  cabeceira:   'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70',
+  puff:        'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=70',
+  travesseiro: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=70',
+  almofada:    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=70',
+  poltrona:    'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=70',
+};
+
+/**
+ * initCategorias_v2 — substitui initCategorias para o slider novo.
+ * É chamado no DOMContentLoaded após o PATCH abaixo sobrescrever initCategorias.
+ */
+const initCategorias_v2 = () => {
+  const track   = document.getElementById('categorias-track');
+  const wrap    = document.getElementById('categorias-track-wrap');
+  const btnPrev = document.getElementById('cat-prev');
+  const btnNext = document.getElementById('cat-next');
+  if (!track || !wrap) return;
+
+  /* — Renderizar cards com imagem de fundo — */
+  CATEGORIAS_DATA.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'cat-card reveal';
+    card.setAttribute('role', 'listitem');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-pressed', 'false');
+    card.dataset.cat = cat.id;
+
+    /* Aplicar imagem de fundo se disponível */
+    const imgUrl = CATEGORIAS_IMAGES[cat.id];
+    if (imgUrl) {
+      card.style.backgroundImage = `url('${imgUrl}')`;
+      card.style.backgroundSize  = 'cover';
+      card.style.backgroundPosition = 'center';
+    }
+
+    card.innerHTML = `
+      <div class="cat-card__icon" aria-hidden="true">${cat.emoji}</div>
+      <span class="cat-card__nome">${cat.nome}</span>
+    `;
+
+    card.addEventListener('click',   () => selecionarCategoria(cat.id, card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selecionarCategoria(cat.id, card);
+      }
+    });
+
+    track.appendChild(card);
+  });
+
+  /* — Setas de navegação — */
+  const SCROLL_PASSO = 220; // px por clique na seta
+
+  const atualizarSetas = () => {
+    if (!btnPrev || !btnNext) return;
+    btnPrev.disabled = wrap.scrollLeft <= 4;
+    btnNext.disabled = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 4;
+  };
+
+  btnPrev?.addEventListener('click', () => {
+    wrap.scrollBy({ left: -SCROLL_PASSO, behavior: 'smooth' });
+  });
+  btnNext?.addEventListener('click', () => {
+    wrap.scrollBy({ left: SCROLL_PASSO, behavior: 'smooth' });
+  });
+
+  wrap.addEventListener('scroll', atualizarSetas, { passive: true });
+  atualizarSetas();
+
+  /* — Autoplay: avança automaticamente a cada 2 s — */
+  let catAutoplay;
+  const iniciarAutoplay = () => {
+    catAutoplay = setInterval(() => {
+      /* Se chegou ao fim, volta ao início */
+      if (wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 4) {
+        wrap.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        wrap.scrollBy({ left: SCROLL_PASSO, behavior: 'smooth' });
+      }
+      atualizarSetas();
+    }, 2000);
+  };
+  const pararAutoplay = () => clearInterval(catAutoplay);
+
+  iniciarAutoplay();
+  wrap.addEventListener('mouseenter',  pararAutoplay);
+  wrap.addEventListener('mouseleave',  iniciarAutoplay);
+  wrap.addEventListener('touchstart',  pararAutoplay, { passive: true });
+
+  /* — Drag-to-scroll (mouse) — */
+  let isDragging = false, startX, scrollLeft;
+
+  wrap.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft;
+    wrap.style.userSelect = 'none';
+    wrap.style.cursor = 'grabbing';
+    pararAutoplay();
+  });
+  wrap.addEventListener('mouseleave', () => { isDragging = false; wrap.style.cursor = ''; });
+  wrap.addEventListener('mouseup',    () => { isDragging = false; wrap.style.userSelect = ''; wrap.style.cursor = ''; iniciarAutoplay(); });
+  wrap.addEventListener('mousemove',  (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x  = e.pageX - wrap.offsetLeft;
+    wrap.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    atualizarSetas();
+  });
+
+  /* — Touch events para mobile — */
+  let touchStartX = 0;
+  wrap.addEventListener('touchstart',  (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend',    (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 30) {
+      wrap.scrollBy({ left: diff * 1.5, behavior: 'smooth' });
+      atualizarSetas();
+    }
+  }, { passive: true });
+};
+
+
+/* ===================================================
+   C. CARROSSEL DE BANNERS PROMOCIONAIS
+   =================================================== */
+const initBannerPromo = () => {
+  const track   = document.getElementById('banner-promo-track');
+  const dotsWrap = document.getElementById('banner-dots');
+  const btnPrev = document.getElementById('banner-prev');
+  const btnNext = document.getElementById('banner-next');
+  if (!track) return;
+
+  const slides = track.querySelectorAll('.banner-slide');
+  const total  = slides.length;
+  if (total === 0) return;
+
+  let atual   = 0;
+  let autoplay;
+
+  /* — Criar dots — */
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = `banner-promo__dot${i === 0 ? ' ativo' : ''}`;
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', `Banner ${i + 1}`);
+    dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    dot.addEventListener('click', () => irParaBanner(i));
+    dotsWrap?.appendChild(dot);
+  });
+
+  /* — Ir para um slide específico — */
+  const irParaBanner = (idx) => {
+    atual = (idx + total) % total;
+    track.style.transform = `translateX(-${atual * 100}%)`;
+
+    /* Atualizar dots */
+    dotsWrap?.querySelectorAll('.banner-promo__dot').forEach((d, i) => {
+      const ativo = i === atual;
+      d.classList.toggle('ativo', ativo);
+      d.setAttribute('aria-selected', String(ativo));
+    });
+
+    /* Atualizar aria nos slides */
+    slides.forEach((s, i) => {
+      s.setAttribute('aria-hidden', i !== atual ? 'true' : 'false');
+    });
+  };
+
+  /* — Setas — */
+  btnPrev?.addEventListener('click', () => {
+    pararAutoplay();
+    irParaBanner(atual - 1);
+    reiniciarAutoplay();
+  });
+  btnNext?.addEventListener('click', () => {
+    pararAutoplay();
+    irParaBanner(atual + 1);
+    reiniciarAutoplay();
+  });
+
+  /* — Autoplay — */
+  const iniciarAutoplay = () => {
+    autoplay = setInterval(() => irParaBanner(atual + 1), 4500);
+  };
+  const pararAutoplay = () => clearInterval(autoplay);
+  const reiniciarAutoplay = () => { pararAutoplay(); iniciarAutoplay(); };
+
+  iniciarAutoplay();
+
+  /* Pausar ao hover */
+  const container = track.closest('.banner-promo');
+  container?.addEventListener('mouseenter',  pararAutoplay);
+  container?.addEventListener('mouseleave',  iniciarAutoplay);
+
+  /* — Touch events para mobile — */
+  let touchX = 0;
+  track.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   (e) => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      pararAutoplay();
+      irParaBanner(diff > 0 ? atual + 1 : atual - 1);
+      reiniciarAutoplay();
+    }
+  }, { passive: true });
+
+  /* Inicializar estado */
+  irParaBanner(0);
+};
+
+
+/* ===================================================
+   D. FAVORITOS & CARRINHO — garantir integração
+      com localStorage em TODOS os pontos de chamada
+   =================================================== */
+
+/**
+ * toggleFavorito_localStorage — versão que usa o módulo Favoritos
+ * com persistência real no localStorage e renderiza no drawer.
+ *
+ * Sobrescreve a função original "toggleFavorito" do escopo
+ * sem quebrar a lógica do initVitrine/renderizarVitrine.
+ */
+const toggleFavorito_v2 = (produtoId, btnEl) => {
+  const adicionou = Favoritos.toggle(produtoId);
+
+  /* Atualizar visual do botão no card */
+  if (btnEl) {
+    btnEl.classList.toggle('ativo', adicionou);
+    btnEl.setAttribute('aria-pressed', String(adicionou));
+    const svg = btnEl.querySelector('svg');
+    if (svg) svg.setAttribute('fill', adicionou ? 'currentColor' : 'none');
+    btnEl.setAttribute('aria-label',
+      `${adicionou ? 'Remover dos' : 'Adicionar aos'} favoritos`
+    );
+  }
+
+  mostrarToast(
+    adicionou ? '❤️ Adicionado aos favoritos!' : 'Removido dos favoritos.',
+    adicionou ? 'sucesso' : 'info'
+  );
+
+  /* Se o drawer de favoritos estiver aberto, re-renderiza */
+  const drawerBody = document.getElementById('drawer-body');
+  const drawerTitulo = document.getElementById('drawer-titulo');
+  if (drawerBody && drawerTitulo && drawerTitulo.textContent.includes('Favoritos')) {
+    renderDrawerFavoritos(drawerBody);
+  }
+};
+
+/**
+ * adicionarAoCarrinho_v2 — versão que usa o módulo Carrinho
+ * com persistência real no localStorage.
+ */
+const adicionarAoCarrinho_v2 = (produto) => {
+  Carrinho.adicionar(produto);
+  mostrarToast(`🛒 "${produto.titulo}" adicionado ao carrinho!`, 'sucesso');
+
+  /* Se o drawer de carrinho estiver aberto, re-renderiza */
+  const drawerBody   = document.getElementById('drawer-body');
+  const drawerFooter = document.getElementById('drawer-footer');
+  const drawerTitulo = document.getElementById('drawer-titulo');
+  if (drawerBody && drawerFooter && drawerTitulo && drawerTitulo.textContent.includes('Carrinho')) {
+    renderDrawerCarrinho(drawerBody, drawerFooter);
+  }
+};
+
+
+/* ===================================================
+   PATCH DO DOMContentLoaded — substituir funções e inicializar módulos novos
+   =================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  /* 1. Substituir initCategorias pela versão v2 com slider */
+  //    O initCategorias original já foi chamado na seção 14 (INIT).
+  //    Limpamos o track e reconstruímos com a nova lógica.
+  const track = document.getElementById('categorias-track');
+  if (track) {
+    track.innerHTML = ''; // Limpar cards gerados pela versão original
+    initCategorias_v2();
+  }
+
+  /* 2. Inicializar carrossel de banners */
+  initBannerPromo();
+
+  /* 3. Patch de toggleFavorito e adicionarAoCarrinho para versões com localStorage */
+  //    Registrar globalmente para que o onclick inline e o renderizarVitrine as usem.
+  window.toggleFavorito      = toggleFavorito_v2;
+  window.adicionarAoCarrinho = adicionarAoCarrinho_v2;
+
+  /* 4. Sincronizar State com localStorage na inicialização */
+  State.carrinho  = Carrinho.getItens();
+  State.favoritos = Favoritos.getIds();
+
+  /* 5. Atualizar badges com valores reais do localStorage */
+  const qtdCarrinho  = State.carrinho.reduce((s, i) => s + i.quantidade, 0);
+  const qtdFavoritos = State.favoritos.length;
+  atualizarBadge('badge-carrinho',  qtdCarrinho);
+  atualizarBadge('badge-favoritos', qtdFavoritos);
+
+  /* 6. Inicializar header com auth */
+  if (typeof initHeaderAuth === 'function') initHeaderAuth();
+
+  /* 7. Garantir que os botões do header abrem o drawer */
+  document.getElementById('btn-carrinho')?.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    abrirDrawer('carrinho');
+  }, { once: false }); // listener redundante mas seguro
+
+  document.getElementById('btn-favoritos')?.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    abrirDrawer('favoritos');
+  }, { once: false });
+
+  /* Garantir que renderizarVitrine leia favs do localStorage */
+  State.favoritos = Favoritos.getIds();
+});

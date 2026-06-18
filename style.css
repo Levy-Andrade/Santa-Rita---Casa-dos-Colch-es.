@@ -14,10 +14,23 @@
   /* === CORES DA MARCA === */
   --azul-santa-rita:    #1E4D8C;
   --azul-escuro:        #163A6E;
-  --vermelho-santa-rita:#D92525;
-  --vermelho-hover:     #B71C1C;
+
+  /* === VERMELHO VIVO E COMERCIAL === */
+  --primary-red:          #DC2626;   /* vermelho principal — vivo e premium */
+  --primary-red-hover:    #B91C1C;   /* hover mais escuro */
+  --primary-red-light:    #FEF2F2;   /* fundo suave para destaques */
+  /* aliases para retrocompatibilidade */
+  --vermelho-santa-rita:  var(--primary-red);
+  --vermelho-hover:       var(--primary-red-hover);
+
   --branco-puro:        #FFFFFF;
   --fundo-cinza-claro:  #F8F9FA;
+
+  /* === SEÇÕES COM FUNDO ALTERNADO === */
+  --fundo-page:         #F0F4F8;   /* azul-gelo corporativo */
+  --fundo-stats:        #EBF2FB;   /* stats strip — azul mais saturado */
+  --fundo-vitrine:      #F7FAFF;   /* vitrine — quase branco */
+  --fundo-cta:          var(--azul-santa-rita); /* CTA band — azul da marca */
 
   /* === TEXTO === */
   --texto-principal:    #333333;
@@ -838,7 +851,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 /* ===== CTA BAND ===== */
 .cta-band {
-  background: linear-gradient(135deg, var(--vermelho-santa-rita) 0%, #A01A1A 100%);
+  background: linear-gradient(135deg, var(--azul-santa-rita) 0%, #1E4D8C 100%);
   padding: 60px 0;
   position: relative;
   overflow: hidden;
@@ -2397,3 +2410,799 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   transition: var(--transicao);
 }
 .btn--danger:hover { background: var(--vermelho-hover); border-color: var(--vermelho-hover); }
+/* ================================================
+   ADIÇÕES v2 — Filtros, Mapa, Divisores, Cores
+   ================================================ */
+
+/* ===== FUNDOS ALTERNADOS DAS SEÇÕES ===== */
+.stats-strip   { background: var(--fundo-stats); }
+.categorias    { background: var(--branco-puro); }
+.vitrine       { background: var(--fundo-vitrine); }
+.sobre         { background: var(--branco-puro); }
+.depoimentos   { background: var(--fundo-page); }
+
+/* CTA band mantém gradiente próprio */
+.cta-band {
+  background: linear-gradient(135deg, var(--azul-santa-rita) 0%, var(--azul-escuro) 100%);
+}
+
+/* ===== DIVISORES GEOMÉTRICOS SVG ===== */
+.secao-divisor {
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  margin-top: -1px; /* eliminar gap de 1px entre seção e divisor */
+}
+.secao-divisor svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+/* Sombra suave abaixo dos divisores para profundidade */
+.secao-divisor--azul-branco { filter: drop-shadow(0 2px 4px rgba(0,0,0,.06)); }
+
+/* ===== FILTROS — novos grupos (densidade e ordenação) ===== */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--branco-puro);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--raio-lg);
+  margin-bottom: 32px;
+  box-shadow: var(--sombra-sm);
+}
+
+.filtros__grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.filtros__label {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--texto-muted);
+}
+
+.filtros__select {
+  padding: 9px 12px;
+  border: 1.5px solid var(--borda);
+  border-radius: var(--raio);
+  font-family: var(--fonte-corpo);
+  font-size: .88rem;
+  color: var(--texto-principal);
+  background: var(--branco-puro);
+  cursor: pointer;
+  transition: border-color .2s;
+  appearance: auto;
+}
+.filtros__select:focus {
+  outline: none;
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 3px rgba(220,38,38,.10);
+}
+
+.filtros__range {
+  accent-color: var(--primary-red);
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Responsive filtros */
+@media (max-width: 640px) {
+  .filtros { flex-direction: column; }
+  .filtros__grupo { width: 100%; }
+}
+
+/* ===== FOOTER — layout com mapa ===== */
+.footer__col--contato-mapa {
+  /* Sobrescreve o col padrão para ocupar a largura total disponível */
+  grid-column: auto;
+}
+
+.footer__contato-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .footer__contato-inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 24px;
+  }
+}
+
+.footer__contato-info h3 { /* heading dentro do bloco contato */
+  color: var(--branco-puro);
+  font-size: .85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 16px;
+  opacity: .9;
+}
+
+.footer__mapa {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+  align-self: start;
+}
+.footer__mapa iframe {
+  display: block;
+  width: 100%;
+  height: 220px;
+  border: 0;
+  border-radius: 10px;
+}
+
+/* Ajuste do grid do footer para acomodar a coluna expandida */
+@media (min-width: 900px) {
+  .footer__grid {
+    grid-template-columns: 1.4fr 1fr 1fr 2fr;
+  }
+}
+
+/* ===== PRODUTO CARD — cursor e hint de nova aba ===== */
+.produto-card {
+  cursor: pointer;
+}
+.produto-card__ver::after {
+  content: ' ↗';
+  font-size: .8em;
+  opacity: .6;
+}
+
+/* ===== OVERRIDE VERMELHO — garantir que todos os elementos usem o novo tom ===== */
+.produto-card__tag   { background: var(--primary-red); }
+.produto-card__avista { color: var(--primary-red); }
+
+.dep-card__estrela { fill: var(--primary-red); stroke: none; }
+
+.sobre__anos-badge {
+  background: var(--primary-red);
+}
+
+:focus-visible {
+  outline-color: var(--primary-red);
+}
+
+/* Badge hover */
+.badge { background: var(--primary-red); }
+
+/* Slider range vermelho vivo */
+input[type="range"] { accent-color: var(--primary-red); }
+/* =====================================================
+   MELHORIAS v2 — Santa Rita Casa dos Colchões
+   =====================================================
+   1. Stats Strip — Contraste forte (azul escuro + vermelho + branco)
+   2. Categorias — Cards maiores com imagem de fundo + slider com setas
+   3. Banner Promocional — Carrossel full-width com dots
+   4. Drawer Carrinho & Favoritos — estilos de renderização de itens
+   ===================================================== */
+
+/* ===== 1. STATS STRIP — REDESIGN DE CONTRASTE ===== */
+
+/* Substitui fundo azul claro por azul escuro institucional */
+.stats-strip {
+  background: var(--azul-escuro); /* #163A6E — azul escuro da marca */
+  padding: 36px 0;
+  border-top: 3px solid var(--primary-red);
+}
+
+/* Número em vermelho forte e vivo */
+.stat__num {
+  color: var(--primary-red); /* #DC2626 — vermelho principal */
+  font-size: 2.1rem;
+  text-shadow: 0 2px 8px rgba(220,38,38,.2);
+}
+
+/* Label em branco puro, sem opacidade reduzida */
+.stat__label {
+  color: #FFFFFF;
+  opacity: 1;      /* Remove a opacidade de 0.75 original */
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+
+/* ===== 2. CATEGORIAS — SLIDER COM SETAS E CARDS COM IMAGEM ===== */
+
+/* Container externo com posição relativa para as setas */
+.categorias__slider-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 56px; /* espaço para as setas nas laterais */
+}
+
+@media (max-width: 600px) {
+  .categorias__slider-container {
+    padding: 0 40px;
+  }
+}
+
+/* Setas de navegação do slider de categorias */
+.cat-slider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--branco-puro);
+  border: 2px solid var(--borda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transicao);
+  box-shadow: var(--sombra-md);
+  flex-shrink: 0;
+}
+.cat-slider__arrow--prev { left: 4px; }
+.cat-slider__arrow--next { right: 4px; }
+
+.cat-slider__arrow:hover {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(220,38,38,.3);
+}
+.cat-slider__arrow:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Track wrap — ocupa espaço disponível */
+.categorias__track-wrap {
+  flex: 1;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 16px 8px 28px;
+  cursor: grab;
+  scroll-behavior: smooth;
+}
+.categorias__track-wrap:active { cursor: grabbing; }
+.categorias__track-wrap::-webkit-scrollbar { display: none; }
+
+.categorias__track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+
+/* Novo cat-card — maior, com área para imagem de fundo */
+.cat-card {
+  flex-shrink: 0;
+  position: relative;
+  width: 180px;
+  height: 220px;
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease;
+  border: 2px solid transparent;
+  /* Fallback — cor da categoria se não houver bg-image */
+  background: linear-gradient(135deg, var(--azul-santa-rita) 0%, var(--azul-escuro) 100%);
+}
+
+/* Imagem de fundo da categoria (definida inline via JS ou CSS) */
+.cat-card[data-bg] {
+  background-image: attr(data-bg url);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Cores de fallback por categoria */
+.cat-card[data-cat="colchao"]     { background: linear-gradient(135deg, #1E4D8C 0%, #163A6E 100%); }
+.cat-card[data-cat="cama"]        { background: linear-gradient(135deg, #2C5F8A 0%, #1A3F5C 100%); }
+.cat-card[data-cat="sofa"]        { background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%); }
+.cat-card[data-cat="cabeceira"]   { background: linear-gradient(135deg, #553C9A 0%, #3B2A70 100%); }
+.cat-card[data-cat="puff"]        { background: linear-gradient(135deg, #B7791F 0%, #744210 100%); }
+.cat-card[data-cat="travesseiro"] { background: linear-gradient(135deg, #276749 0%, #1C4532 100%); }
+.cat-card[data-cat="almofada"]    { background: linear-gradient(135deg, #C05621 0%, #7B341E 100%); }
+.cat-card[data-cat="poltrona"]    { background: linear-gradient(135deg, #2B6CB0 0%, #1A365D 100%); }
+
+/* Gradiente escuro na base para legibilidade do nome */
+.cat-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(0,0,0,.55) 70%,
+    rgba(0,0,0,.80) 100%
+  );
+  pointer-events: none;
+}
+
+/* Ícone da categoria — posicionado no topo */
+.cat-card__icon {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255,255,255,.3);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  z-index: 1;
+  transition: var(--transicao);
+}
+
+/* Nome da categoria — centralizado na base do card */
+.cat-card__nome {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: .9rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: .03em;
+  z-index: 2;
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+  text-transform: uppercase;
+}
+
+/* Hover: zoom sutil + sombra ampliada */
+.cat-card:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.28);
+  border-color: rgba(255,255,255,.4);
+}
+.cat-card:hover .cat-card__icon {
+  background: rgba(255,255,255,.28);
+  transform: translateX(-50%) scale(1.08);
+}
+
+/* Estado ativo (categoria selecionada) */
+.cat-card.ativa {
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 3px rgba(220,38,38,.35), 0 8px 24px rgba(0,0,0,.25);
+}
+.cat-card.ativa::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(220,38,38,.18);
+  z-index: 1;
+  pointer-events: none;
+}
+.cat-card.ativa .cat-card__nome { color: var(--primary-red); }
+
+
+/* ===== 3. BANNER PROMOCIONAL — CARROSSEL FULL-WIDTH ===== */
+
+.banner-promo {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #111;
+  /* Separador visual do hero */
+  border-bottom: 3px solid var(--primary-red);
+}
+
+.banner-promo__track-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-promo__track {
+  display: flex;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+
+/* Cada slide ocupa 100% da largura */
+.banner-slide {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  /* Proporção 3:1 — manter aspect-ratio para diferentes banners */
+  aspect-ratio: 3 / 1;
+  background: var(--azul-escuro);
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  /* Mobile: proporção mais alta para melhor leitura */
+  .banner-slide {
+    aspect-ratio: 2 / 1;
+  }
+}
+
+/* Imagem do banner */
+.banner-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s ease;
+}
+.banner-slide:hover img {
+  transform: scale(1.02);
+}
+
+/* Overlay de texto — visível por cima da imagem */
+.banner-slide__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(24px, 5vw, 60px);
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,.72) 0%,
+    rgba(0,0,0,.4) 55%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.banner-slide__tag {
+  display: inline-block;
+  background: var(--primary-red);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  padding: 5px 12px;
+  border-radius: 99px;
+  margin-bottom: 12px;
+}
+
+.banner-slide__titulo {
+  font-family: var(--fonte-display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
+  max-width: 560px;
+}
+
+.banner-slide__sub {
+  font-size: clamp(.85rem, 1.8vw, 1.1rem);
+  color: rgba(255,255,255,.88);
+  margin-bottom: 20px;
+  max-width: 440px;
+  line-height: 1.5;
+}
+
+.banner-slide__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-red);
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--raio);
+  transition: var(--transicao);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.banner-slide:hover .banner-slide__cta {
+  background: var(--primary-red-hover);
+  transform: translateX(4px);
+}
+
+/* Setas do banner */
+.banner-promo__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,.3);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+.banner-promo__arrow:hover {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+}
+
+.banner-promo__arrow--prev { left: 20px; }
+.banner-promo__arrow--next { right: 20px; }
+
+@media (max-width: 480px) {
+  .banner-promo__arrow {
+    width: 38px;
+    height: 38px;
+  }
+  .banner-promo__arrow--prev { left: 8px; }
+  .banner-promo__arrow--next { right: 8px; }
+}
+
+/* Dots do banner */
+.banner-promo__dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.banner-promo__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.45);
+  border: none;
+  cursor: pointer;
+  transition: var(--transicao);
+  padding: 0;
+}
+.banner-promo__dot.ativo {
+  background: #fff;
+  width: 28px;
+  border-radius: 5px;
+}
+.banner-promo__dot:hover { background: rgba(255,255,255,.75); }
+
+
+/* ===== 4. DRAWER — estilos complementares ===== */
+
+/* Container do drawer overlay */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 9000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.drawer-overlay.aberto {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Drawer lateral */
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(420px, 95vw);
+  height: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  box-shadow: -8px 0 40px rgba(0,0,0,.18);
+}
+.drawer-overlay.aberto .drawer {
+  transform: translateX(0);
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--borda);
+  flex-shrink: 0;
+}
+.drawer__titulo {
+  font-family: var(--fonte-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.drawer__footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--borda);
+  flex-shrink: 0;
+  background: var(--fundo-cinza-claro);
+}
+.drawer__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.drawer__total-label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--texto-secundario);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.drawer__total-valor {
+  font-family: var(--fonte-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-red);
+}
+
+/* Item dentro do drawer (carrinho e favoritos) */
+.drawer-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px;
+  background: var(--fundo-cinza-claro);
+  border-radius: var(--raio);
+  border: 1px solid var(--borda);
+  position: relative;
+  transition: var(--transicao);
+}
+.drawer-item:hover {
+  border-color: rgba(220,38,38,.2);
+  box-shadow: var(--sombra-sm);
+}
+
+.drawer-item__img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: var(--borda);
+}
+
+.drawer-item__corpo {
+  flex: 1;
+  min-width: 0;
+}
+.drawer-item__cat {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--texto-muted);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.drawer-item__nome {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--texto-principal);
+  line-height: 1.3;
+  margin-bottom: 4px;
+  /* Truncar textos longos */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.drawer-item__preco {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-red);
+}
+.drawer-item__parcela {
+  font-size: .75rem;
+  color: var(--texto-muted);
+  margin-bottom: 8px;
+}
+
+/* Controle de quantidade */
+.drawer-item__qtd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.qtd-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1.5px solid var(--borda);
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transicao);
+  line-height: 1;
+  color: var(--texto-principal);
+}
+.qtd-btn:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+.qtd-num {
+  font-size: .95rem;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Botão remover do item */
+.drawer-item__remover {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--texto-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transicao);
+  border: none;
+}
+.drawer-item__remover:hover {
+  background: #FEE2E2;
+  color: var(--primary-red);
+}
+
+/* Estado vazio do drawer */
+.drawer-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--texto-muted);
+  flex: 1;
+}
+.drawer-vazio svg {
+  opacity: .3;
+}
+.drawer-vazio p {
+  font-size: .95rem;
+  font-weight: 500;
+}

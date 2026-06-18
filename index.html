@@ -105,6 +105,87 @@
       </div>
     </section>
 
+    <!-- ===== CARROSSEL DE BANNERS PROMOCIONAIS ===== -->
+    <!--
+      COMO USAR: Adicione novos slides copiando o bloco <a class="banner-slide">...</a>
+      Troque href pelo link de destino (catálogo ou WhatsApp) e src pela sua imagem de banner.
+      Tamanho recomendado: 1440×480px (proporção 3:1).
+    -->
+    <section class="banner-promo" id="banner-promo" aria-label="Banners promocionais" aria-roledescription="carrossel">
+      <div class="banner-promo__track-wrap">
+        <div class="banner-promo__track" id="banner-promo-track">
+
+          <!-- SLIDE 1 — Substituir src pela sua imagem de Black Friday -->
+          <a class="banner-slide"
+             href="https://wa.me/5599701-7188?text=Quero%20aproveitar%20a%20promoção!"
+             target="_blank" rel="noopener"
+             aria-label="Promoção Black Friday — até 50% off. Clique para falar no WhatsApp.">
+            <img
+              src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1440&q=80"
+              alt="Black Friday — Até 50% de desconto em colchões e camas"
+              loading="eager" />
+            <!-- Overlay de texto (visível quando não há imagem) -->
+            <div class="banner-slide__overlay">
+              <span class="banner-slide__tag">⚡ Oferta Especial</span>
+              <h2 class="banner-slide__titulo">Promoção Relâmpago</h2>
+              <p class="banner-slide__sub">Até 50% off em colchões selecionados</p>
+              <span class="banner-slide__cta">Ver Ofertas</span>
+            </div>
+          </a>
+
+          <!-- SLIDE 2 — Substituir src pela imagem do cupom/campanha -->
+          <a class="banner-slide"
+             href="#vitrine"
+             aria-label="Parcelamento em 10x sem juros — Clique para ver o catálogo.">
+            <img
+              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1440&q=80"
+              alt="Parcelamento facilitado em 10x sem juros"
+              loading="lazy" />
+            <div class="banner-slide__overlay">
+              <span class="banner-slide__tag">💳 Facilidade</span>
+              <h2 class="banner-slide__titulo">10× Sem Juros</h2>
+              <p class="banner-slide__sub">No crédito, sem acréscimos. Confira o catálogo.</p>
+              <span class="banner-slide__cta">Ver Catálogo</span>
+            </div>
+          </a>
+
+          <!-- SLIDE 3 — Campanha sob medida -->
+          <a class="banner-slide"
+             href="https://wa.me/5599701-7188?text=Quero%20um%20produto%20sob%20medida!"
+             target="_blank" rel="noopener"
+             aria-label="Produtos sob medida — fale no WhatsApp.">
+            <img
+              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1440&q=80"
+              alt="Produtos sob medida para o seu espaço"
+              loading="lazy" />
+            <div class="banner-slide__overlay">
+              <span class="banner-slide__tag">📐 Exclusivo</span>
+              <h2 class="banner-slide__titulo">Feito Sob Medida</h2>
+              <p class="banner-slide__sub">Colchões, bases e cabeceiras no tamanho exato.</p>
+              <span class="banner-slide__cta">Solicitar Orçamento</span>
+            </div>
+          </a>
+
+        </div><!-- /.banner-promo__track -->
+      </div><!-- /.banner-promo__track-wrap -->
+
+      <!-- Setas de navegação -->
+      <button class="banner-promo__arrow banner-promo__arrow--prev" id="banner-prev" aria-label="Banner anterior">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="banner-promo__arrow banner-promo__arrow--next" id="banner-next" aria-label="Próximo banner">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- Dots de paginação -->
+      <div class="banner-promo__dots" id="banner-dots" role="tablist" aria-label="Navegar pelos banners"></div>
+    </section>
+
+    <!-- Divisor geométrico hero → stats -->
+    <div class="secao-divisor secao-divisor--azul-branco" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><polygon points="0,60 1440,0 1440,60" fill="var(--fundo-stats)"/></svg>
+    </div>
+
     <!-- ===== STATS STRIP ===== -->
     <div class="stats-strip" role="region" aria-label="Nossos números">
       <div class="container stats-strip__inner">
@@ -135,12 +216,25 @@
           <p class="section-subtitulo">Encontre exatamente o que você precisa para transformar seu espaço.</p>
         </header>
       </div>
-      <div class="categorias__track-wrap">
-        <div class="categorias__track" id="categorias-track" role="list" aria-label="Categorias de produtos">
-          <!-- Renderizado via JS -->
+      <div class="categorias__slider-container">
+        <button class="cat-slider__arrow cat-slider__arrow--prev" id="cat-prev" aria-label="Categorias anteriores">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="categorias__track-wrap" id="categorias-track-wrap">
+          <div class="categorias__track" id="categorias-track" role="list" aria-label="Categorias de produtos">
+            <!-- Renderizado via JS -->
+          </div>
         </div>
+        <button class="cat-slider__arrow cat-slider__arrow--next" id="cat-next" aria-label="Proximas categorias">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
     </section>
+
+    <!-- Divisor geométrico categorias → vitrine -->
+    <div class="secao-divisor secao-divisor--branco-azul" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 1440,60 0,60" fill="var(--fundo-vitrine)"/></svg>
+    </div>
 
     <!-- ===== VITRINE ===== -->
     <section class="vitrine" id="vitrine" aria-labelledby="vitrine-titulo">
@@ -167,6 +261,24 @@
             </select>
           </div>
           <div class="filtros__grupo">
+            <label for="filtro-densidade" class="filtros__label">Densidade:</label>
+            <select id="filtro-densidade" class="filtros__select">
+              <option value="todas">Todas</option>
+              <option value="D28">D28</option>
+              <option value="D33">D33</option>
+              <option value="D45">D45</option>
+              <option value="molas">Molas Ensacadas</option>
+            </select>
+          </div>
+          <div class="filtros__grupo">
+            <label for="filtro-ordenacao" class="filtros__label">Ordenar:</label>
+            <select id="filtro-ordenacao" class="filtros__select">
+              <option value="padrao">Padrão</option>
+              <option value="menor">Preço: Menor para Maior</option>
+              <option value="maior">Preço: Maior para Menor</option>
+            </select>
+          </div>
+          <div class="filtros__grupo">
             <label for="filtro-preco" class="filtros__label">Preço máx: <span id="filtro-preco-valor">R$ 5.000</span></label>
             <input type="range" id="filtro-preco" class="filtros__range" min="100" max="5000" value="5000" step="50" />
           </div>
@@ -185,6 +297,11 @@
         </div>
       </div>
     </section>
+
+    <!-- Divisor geométrico vitrine → CTA -->
+    <div class="secao-divisor secao-divisor--azul-vermelho" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><polygon points="0,60 1440,0 1440,60" fill="var(--fundo-cta)"/></svg>
+    </div>
 
     <!-- ===== CTA INTERMEDIÁRIO ===== -->
     <section class="cta-band" aria-labelledby="cta-titulo">
@@ -325,26 +442,21 @@
         </ul>
       </div>
 
-      <address class="footer__col footer__col--contato" aria-label="Informações de contato">
-        <h3 class="footer__heading">Contato</h3>
-        <ul class="footer__list footer__list--contact" role="list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Av. Principal, 1234 – Centro<br>São Luís, MA – 65.000-000
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="https://wa.me/5599701-7188" class="footer__link">(99) 99701-7188</a> — WhatsApp
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:5599860-8375" class="footer__link">(99) 99860-8375</a> — Loja
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Seg–Sáb: 08h–18h | Dom: 09h–13h
-          </li>
-        </ul>
+    
+          <div class="footer__mapa">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.0!2d-44.3028!3d-2.5297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMzEnNDYuOSJTIDQ0wrAxOCcxMC4xIlc!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
+              width="100%"
+              height="220"
+              style="border:0;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.25);"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Localização da Santa Rita - Casa dos Colchões no Google Maps"
+              aria-label="Mapa interativo com a localização da loja"
+            ></iframe>
+          </div>
+        </div>
       </address>
     </div>
 
