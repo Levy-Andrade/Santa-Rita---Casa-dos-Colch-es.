@@ -542,13 +542,12 @@ const initHeader = () => {
 };
 
 /* ================================================
-   7. CATEGORIAS — carrossel com filtro
+   7. CATEGORIAS — grid estático (8 cards simultâneos)
    ================================================ */
 const initCategorias = () => {
-  const track = document.getElementById('categorias-track');
-  if (!track) return;
+  const grid = document.getElementById('categorias-grid');
+  if (!grid) return;
 
-  // Renderizar cards
   CATEGORIAS_DATA.forEach(cat => {
     const card = document.createElement('div');
     card.className = 'cat-card reveal';
@@ -556,7 +555,14 @@ const initCategorias = () => {
     card.setAttribute('tabindex', '0');
     card.setAttribute('aria-pressed', 'false');
     card.dataset.cat = cat.id;
-    /* Sem emoji — apenas nome da categoria */
+
+    const imgUrl = CATEGORIAS_IMAGES[cat.id];
+    if (imgUrl) {
+      card.style.backgroundImage    = `url('${imgUrl}')`;
+      card.style.backgroundSize     = 'cover';
+      card.style.backgroundPosition = 'center';
+    }
+
     card.innerHTML = `<span class="cat-card__nome">${cat.nome}</span>`;
 
     card.addEventListener('click', () => selecionarCategoria(cat.id, card));
@@ -567,27 +573,10 @@ const initCategorias = () => {
       }
     });
 
-    track.appendChild(card);
+    grid.appendChild(card);
   });
 
-  // Drag-to-scroll no carrossel
-  let isDragging = false, startX, scrollLeft;
-  const wrap = track.parentElement;
-
-  wrap.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.pageX - wrap.offsetLeft;
-    scrollLeft = wrap.scrollLeft;
-    wrap.style.userSelect = 'none';
-  });
-  wrap.addEventListener('mouseleave', () => { isDragging = false; });
-  wrap.addEventListener('mouseup', () => { isDragging = false; wrap.style.userSelect = ''; });
-  wrap.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - wrap.offsetLeft;
-    wrap.scrollLeft = scrollLeft - (x - startX) * 1.2;
-  });
+  observarReveal();
 };
 
 const selecionarCategoria = (catId, cardClicado) => {
@@ -717,15 +706,15 @@ const renderizarVitrine = async () => {
       </div>
     `;
 
-    // Click no card → nova aba produto.html
+    // Click no card → mesma aba produto.html
     card.addEventListener('click', (e) => {
       if (e.target.closest('.produto-card__fav')) return;
-      window.open(`produto.html?id=${produto.id}`, '_blank', 'noopener');
+      window.location.href = `produto.html?id=${produto.id}`;
     });
     card.addEventListener('keydown', (e) => {
       if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.produto-card__fav')) {
         e.preventDefault();
-        window.open(`produto.html?id=${produto.id}`, '_blank', 'noopener');
+        window.location.href = `produto.html?id=${produto.id}`;
       }
     });
 
@@ -1875,13 +1864,8 @@ window.fecharDrawer = fecharDrawer;
    ===================================================== */
 
 /* ===================================================
-   B. SLIDER DE CATEGORIAS — refatoração completa
+   B. IMAGENS DAS CATEGORIAS (usadas por initCategorias)
    =================================================== */
-
-/**
- * Imagens de fundo para cada categoria.
- * Troque pelas URLs reais ou deixe null para usar só o gradiente CSS.
- */
 const CATEGORIAS_IMAGES = {
   colchao:     'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70',
   cama:        'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=70',
@@ -1891,183 +1875,6 @@ const CATEGORIAS_IMAGES = {
   travesseiro: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=70',
   almofada:    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=70',
   poltrona:    'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=70',
-};
-
-/**
- * initCategorias_v2 — substitui initCategorias para o slider novo.
- * É chamado no DOMContentLoaded após o PATCH abaixo sobrescrever initCategorias.
- */
-const initCategorias_v2 = () => {
-  const track   = document.getElementById('categorias-track');
-  const wrap    = document.getElementById('categorias-track-wrap');
-  const btnPrev = document.getElementById('cat-prev');
-  const btnNext = document.getElementById('cat-next');
-  if (!track || !wrap) return;
-
-  /* ── Renderizar cards — SEM emoji, apenas imagem de fundo + nome ── */
-  CATEGORIAS_DATA.forEach(cat => {
-    const card = document.createElement('div');
-    card.className = 'cat-card reveal';
-    card.setAttribute('role', 'listitem');
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-pressed', 'false');
-    card.dataset.cat = cat.id;
-
-    /* Aplicar imagem de fundo se disponível */
-    const imgUrl = CATEGORIAS_IMAGES[cat.id];
-    if (imgUrl) {
-      card.style.backgroundImage    = `url('${imgUrl}')`;
-      card.style.backgroundSize     = 'cover';
-      card.style.backgroundPosition = 'center';
-    }
-
-    /* Apenas o nome da categoria no rodapé */
-    card.innerHTML = `<span class="cat-card__nome">${cat.nome}</span>`;
-
-    card.addEventListener('click',   () => selecionarCategoria(cat.id, card));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        selecionarCategoria(cat.id, card);
-      }
-    });
-
-    track.appendChild(card);
-  });
-
-  /* ── LOOP INFINITO: clonar cards no início e no fim do track ── */
-  const originalCards = Array.from(track.children);
-  const totalOriginal = originalCards.length;
-
-  /* Clones no FIM (exibidos após o último card real) */
-  originalCards.forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.classList.add('cat-card--clone');
-    track.appendChild(clone);
-  });
-
-  /* Clones no INÍCIO (exibidos antes do primeiro card real) */
-  originalCards.slice().reverse().forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.classList.add('cat-card--clone');
-    track.insertBefore(clone, track.firstChild);
-  });
-
-  /* Reanexar listeners de clique nos clones (para que o filtro funcione) */
-  track.querySelectorAll('.cat-card--clone').forEach(clone => {
-    const catId = clone.dataset.cat;
-    clone.addEventListener('click', () => {
-      const original = track.querySelector(`.cat-card:not(.cat-card--clone)[data-cat="${catId}"]`);
-      selecionarCategoria(catId, original || clone);
-    });
-  });
-
-  /* ── Calcular largura de um card + gap para saltos precisos ── */
-  const getCardStep = () => {
-    const card = track.querySelector('.cat-card');
-    if (!card) return 220;
-    const style = getComputedStyle(track);
-    const gap   = parseFloat(style.gap) || 20;
-    return card.offsetWidth + gap;
-  };
-
-  /* ── Posicionar o scroll no início dos cards REAIS (pular os clones do início) ── */
-  const jumpToReal = (instant = false) => {
-    const step  = getCardStep();
-    const target = step * totalOriginal;
-    if (instant) {
-      wrap.style.scrollBehavior = 'auto';
-      wrap.scrollLeft = target;
-      /* Forçar reflow antes de restaurar */
-      wrap.offsetHeight; // eslint-disable-line
-      wrap.style.scrollBehavior = '';
-    } else {
-      wrap.scrollLeft = target;
-    }
-  };
-
-  /* Posição inicial: início dos cards reais */
-  jumpToReal(true);
-
-  /* ── Setas de navegação com passo de 1 card ── */
-  const SCROLL_PASSO = () => getCardStep();
-
-  btnPrev?.addEventListener('click', () => {
-    wrap.scrollBy({ left: -SCROLL_PASSO(), behavior: 'smooth' });
-  });
-  btnNext?.addEventListener('click', () => {
-    wrap.scrollBy({ left: SCROLL_PASSO(), behavior: 'smooth' });
-  });
-
-  /* ── Loop: ao chegar na zona dos clones, saltar para os cards reais ── */
-  let loopTimeout;
-  wrap.addEventListener('scroll', () => {
-    const step         = getCardStep();
-    const cloneZoneEnd   = step * totalOriginal;          // início dos reais
-    const realZoneEnd    = step * (totalOriginal * 2);    // início dos clones do fim
-
-    clearTimeout(loopTimeout);
-    loopTimeout = setTimeout(() => {
-      if (wrap.scrollLeft < step * (totalOriginal - 1)) {
-        /* Usuário chegou na zona dos clones do INÍCIO → pular para o equivalente real no FIM */
-        wrap.style.scrollBehavior = 'auto';
-        wrap.scrollLeft += step * totalOriginal;
-        wrap.style.scrollBehavior = '';
-      } else if (wrap.scrollLeft >= realZoneEnd + step) {
-        /* Usuário chegou na zona dos clones do FIM → pular para o equivalente real no INÍCIO */
-        wrap.style.scrollBehavior = 'auto';
-        wrap.scrollLeft -= step * totalOriginal;
-        wrap.style.scrollBehavior = '';
-      }
-
-      atualizarSetas();
-    }, 80);
-  }, { passive: true });
-
-  /* Setas nunca desabilitam (loop infinito) */
-  const atualizarSetas = () => {
-    if (!btnPrev || !btnNext) return;
-    btnPrev.disabled = false;
-    btnNext.disabled = false;
-  };
-  atualizarSetas();
-
-  /* ── Drag-to-scroll com mouse (desktop) ── */
-  let isDragging = false, startX, scrollLeftAtStart;
-
-  wrap.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX     = e.pageX - wrap.offsetLeft;
-    scrollLeftAtStart = wrap.scrollLeft;
-    wrap.style.userSelect = 'none';
-    wrap.style.cursor     = 'grabbing';
-  });
-  wrap.addEventListener('mouseleave', () => { isDragging = false; wrap.style.cursor = ''; });
-  wrap.addEventListener('mouseup',    () => {
-    isDragging = false;
-    wrap.style.userSelect = '';
-    wrap.style.cursor     = '';
-  });
-  wrap.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - wrap.offsetLeft;
-    wrap.scrollLeft = scrollLeftAtStart - (x - startX) * 1.2;
-  });
-
-  /* ── Touch/swipe para mobile ── */
-  let touchStartX = 0;
-  wrap.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  wrap.addEventListener('touchend', (e) => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 30) {
-      wrap.scrollBy({ left: diff * 1.5, behavior: 'smooth' });
-    }
-  }, { passive: true });
 };
 
 
@@ -2227,20 +2034,12 @@ const adicionarAoCarrinho_v2 = (produto) => {
    PATCH DO DOMContentLoaded — substituir funções e inicializar módulos novos
    =================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  /* 1. Substituir initCategorias pela versão v2 com slider */
-  //    O initCategorias original já foi chamado na seção 14 (INIT).
-  //    Limpamos o track e reconstruímos com a nova lógica.
-  const track = document.getElementById('categorias-track');
-  if (track) {
-    track.innerHTML = ''; // Limpar cards gerados pela versão original
-    initCategorias_v2();
-  }
+  /* 1. initCategorias já cuida do grid na seção 7 (INIT) */
 
   /* 2. Inicializar carrossel de banners */
   initBannerPromo();
 
   /* 3. Patch de toggleFavorito e adicionarAoCarrinho para versões com localStorage */
-  //    Registrar globalmente para que o onclick inline e o renderizarVitrine as usem.
   window.toggleFavorito      = toggleFavorito_v2;
   window.adicionarAoCarrinho = adicionarAoCarrinho_v2;
 
@@ -2261,7 +2060,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-carrinho')?.addEventListener('click', (e) => {
     e.stopImmediatePropagation();
     abrirDrawer('carrinho');
-  }, { once: false }); // listener redundante mas seguro
+  }, { once: false });
 
   document.getElementById('btn-favoritos')?.addEventListener('click', (e) => {
     e.stopImmediatePropagation();

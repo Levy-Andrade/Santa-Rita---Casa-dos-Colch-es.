@@ -9,125 +9,214 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body class="dash-page">
 
-  <!-- ===== TOPBAR ===== -->
-  <div class="topbar" role="banner" aria-label="Informações de atendimento">
-    <div class="topbar__inner container">
-      <span class="topbar__msg">
-        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        Painel Administrativo — Santa Rita
-      </span>
-      <div class="topbar__contacts">
-        <a href="https://wa.me/5599701-7188" class="topbar__phone" target="_blank" rel="noopener">
-          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
-          (99) 99701-7188
+  <!-- ===== LAYOUT SIDEBAR ===== -->
+  <div class="db-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="db-sidebar" id="db-sidebar" aria-label="Menu administrativo">
+      <div class="db-sidebar__header">
+        <a href="index.html" class="db-sidebar__logo" aria-label="Voltar para o site">
+          <span class="db-sidebar__logo-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+              <rect width="36" height="36" rx="8" fill="#DC2626"/>
+              <path d="M7 14h22v2H7zM7 18h22v2H7zM10 22h16v4H10z" fill="white"/>
+              <path d="M10 10h16v4H10z" fill="white" opacity=".7"/>
+            </svg>
+          </span>
+          <span class="db-sidebar__logo-text">
+            <strong>Santa Rita</strong>
+            <small>Admin</small>
+          </span>
         </a>
+        <button class="db-sidebar__toggle" id="db-sidebar-toggle" aria-label="Fechar menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
-    </div>
-  </div>
 
-  <!-- ===== HEADER ===== -->
-  <header class="header" id="header" role="banner">
-    <div class="header__inner container">
-      <a href="index.html" class="header__logo" aria-label="Voltar para o site">
-        <span class="logo__icon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <rect width="36" height="36" rx="8" fill="#D92525"/>
-            <path d="M7 14h22v2H7zM7 18h22v2H7zM10 22h16v4H10z" fill="white"/>
-            <path d="M10 10h16v4H10z" fill="white" opacity=".7"/>
-          </svg>
-        </span>
-        <span class="logo__text">
-          <strong>Santa Rita</strong>
-          <small>Dashboard Admin</small>
-        </span>
-      </a>
-
-      <nav class="header__nav" id="main-nav" aria-label="Navegação principal">
-        <ul class="nav__list" role="list">
-          <li><a href="index.html" class="nav__link">Ver Site</a></li>
-          <li><a href="#dash-metricas" class="nav__link">Métricas</a></li>
-          <li><a href="#dash-produtos" class="nav__link">Produtos</a></li>
-          <li><a href="#dash-usuarios" class="nav__link">Usuários</a></li>
-          <li id="nav-dashboard-item"><a href="dashboard.html" class="nav__link nav__link--dash ativo">Dashboard</a></li>
+      <nav class="db-sidebar__nav" aria-label="Navegação do painel">
+        <ul class="db-sidebar__list" role="list">
+          <li>
+            <button class="db-nav-item db-nav-item--ativo" data-section="section-geral" aria-current="page">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Dashboard Geral
+            </button>
+          </li>
+          <li>
+            <button class="db-nav-item" data-section="section-produtos">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Gerenciamento de Produtos
+            </button>
+          </li>
+          <li>
+            <button class="db-nav-item" data-section="section-novo-produto">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Novo Produto
+            </button>
+          </li>
+          <li>
+            <button class="db-nav-item" data-section="section-clientes">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Clientes Cadastrados
+            </button>
+          </li>
+          <li>
+            <button class="db-nav-item" data-section="section-estoque">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Estoque
+            </button>
+          </li>
+          <li>
+            <button class="db-nav-item" data-section="section-favoritos">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Favoritos
+            </button>
+          </li>
+          <li>
+            <button class="db-nav-item" data-section="section-metricas">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Métricas
+            </button>
+          </li>
         </ul>
       </nav>
 
-      <div class="header__actions" role="toolbar">
-        <div id="header-user-area"></div>
-        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
-          <span></span><span></span><span></span>
+      <div class="db-sidebar__footer">
+        <a href="index.html" class="db-sidebar__site-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Ver Site
+        </a>
+        <button class="db-sidebar__logout" id="btn-logout-sidebar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sair
         </button>
       </div>
-    </div>
-  </header>
+    </aside>
 
-  <!-- ===== DASHBOARD MAIN ===== -->
-  <main class="dash-main" id="main-content">
-    <div class="container">
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="db-content">
 
-      <!-- Cabeçalho do painel -->
-      <div class="dash-header">
-        <div>
-          <h1 class="dash-header__titulo">Painel de Controle</h1>
-          <p class="dash-header__sub" id="dash-saudacao">Bem-vindo ao painel administrativo.</p>
-        </div>
-        <div class="dash-header__actions">
-          <a href="index.html" class="btn btn--outline-dark btn--sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            Ver Site
-          </a>
-        </div>
-      </div>
-
-      <!-- ===== MÉTRICAS ===== -->
-      <section class="dash-section" id="dash-metricas" aria-labelledby="dash-metricas-titulo">
-        <h2 class="dash-section__titulo" id="dash-metricas-titulo">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          Analytics
-        </h2>
-        <div class="metricas-grid" id="metricas-grid">
-          <!-- Renderizado via JS -->
-        </div>
-      </section>
-
-      <!-- ===== GERENCIAMENTO DE PRODUTOS ===== -->
-      <section class="dash-section" id="dash-produtos" aria-labelledby="dash-produtos-titulo">
-        <div class="dash-section__header">
-          <h2 class="dash-section__titulo" id="dash-produtos-titulo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            Gerenciamento de Produtos
-          </h2>
-          <button class="btn btn--primario btn--sm" id="dash-btn-add-produto">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Novo Produto
+      <!-- Topbar do dashboard -->
+      <header class="db-topbar">
+        <div class="db-topbar__left">
+          <button class="db-hamburger" id="db-hamburger" aria-label="Abrir menu lateral" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
+          <div class="db-topbar__breadcrumb">
+            <span class="db-topbar__page-name" id="db-page-name">Dashboard Geral</span>
+          </div>
         </div>
+        <div class="db-topbar__right">
+          <span class="db-topbar__saudacao" id="dash-saudacao">Carregando...</span>
+          <div class="db-topbar__avatar" id="db-user-avatar">A</div>
+        </div>
+      </header>
 
-        <!-- Formulário Adicionar/Editar -->
-        <div class="dash-form-wrap" id="dash-form-wrap" hidden>
-          <div class="dash-form-card">
-            <div class="dash-form-card__header">
-              <h3 id="dash-form-titulo">Adicionar Novo Produto</h3>
-              <button class="modal__fechar" id="dash-form-fechar" aria-label="Fechar formulário">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
+      <!-- ===== SEÇÃO: DASHBOARD GERAL ===== -->
+      <main class="db-main" id="db-main">
+
+        <section class="db-section db-section--ativa" id="section-geral" aria-labelledby="titulo-geral">
+          <div class="db-section-header">
+            <h1 class="db-section-title" id="titulo-geral">Dashboard Geral</h1>
+            <p class="db-section-sub">Visão geral do negócio em tempo real.</p>
+          </div>
+
+          <!-- Cards de resumo -->
+          <div class="db-overview-grid" id="db-overview-grid">
+            <!-- Renderizado via JS -->
+          </div>
+
+          <!-- Gráfico de categorias -->
+          <div class="db-card db-card--chart mt-32">
+            <div class="db-card-header">
+              <h2 class="db-card-title">Distribuição por Categoria</h2>
             </div>
+            <div class="db-chart-bars" id="db-chart-bars">
+              <!-- Renderizado via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== SEÇÃO: GERENCIAMENTO DE PRODUTOS ===== -->
+        <section class="db-section" id="section-produtos" aria-labelledby="titulo-produtos" hidden>
+          <div class="db-section-header">
+            <div>
+              <h1 class="db-section-title" id="titulo-produtos">Gerenciamento de Produtos</h1>
+              <p class="db-section-sub">Edite, remova e visualize os produtos do catálogo.</p>
+            </div>
+            <button class="btn btn--primario btn--sm" id="dash-btn-add-produto">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Novo Produto
+            </button>
+          </div>
+
+          <!-- Filtros da tabela -->
+          <div class="db-card">
+            <div class="dash-table-filter">
+              <input type="text" id="dash-busca" class="field__input" placeholder="Buscar produto por nome..." aria-label="Buscar produto" />
+              <select id="dash-filtro-cat" class="filtros__select" aria-label="Filtrar por categoria">
+                <option value="todos">Todas as categorias</option>
+                <option value="colchao">Colchões</option>
+                <option value="cama">Cama</option>
+                <option value="sofa">Sofá</option>
+                <option value="cabeceira">Cabeceira</option>
+                <option value="puff">Puff</option>
+                <option value="travesseiro">Travesseiro</option>
+                <option value="almofada">Almofada</option>
+                <option value="poltrona">Poltrona</option>
+              </select>
+            </div>
+
+            <div class="dash-table-wrap" role="region" aria-label="Tabela de produtos">
+              <table class="dash-table" id="dash-tabela-produtos">
+                <thead>
+                  <tr>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Destaque</th>
+                    <th scope="col" class="text-center">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-tabela-body">
+                  <!-- Renderizado via JS -->
+                </tbody>
+              </table>
+              <div class="dash-table-empty" id="dash-tabela-empty" hidden>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <p>Nenhum produto encontrado.</p>
+              </div>
+            </div>
+            <div class="dash-table-count" id="dash-table-count"></div>
+          </div>
+        </section>
+
+        <!-- ===== SEÇÃO: NOVO PRODUTO ===== -->
+        <section class="db-section" id="section-novo-produto" aria-labelledby="titulo-novo-produto" hidden>
+          <div class="db-section-header">
+            <div>
+              <h1 class="db-section-title" id="titulo-novo-produto">Novo Produto</h1>
+              <p class="db-section-sub">Preencha os dados para adicionar um produto ao catálogo.</p>
+            </div>
+          </div>
+
+          <div class="db-card db-form-card">
             <form class="dash-form" id="dash-form-produto" novalidate>
               <input type="hidden" id="df-id" />
-              <div class="dash-form__grid">
+              <div class="db-form-grid">
                 <div class="field">
-                  <label for="df-nome" class="field__label">Nome do Produto *</label>
+                  <label for="df-nome" class="field__label">Nome do Produto <span class="field__obrig">*</span></label>
                   <input type="text" id="df-nome" class="field__input" placeholder="Ex: Colchão Molas Pocket Premium" required />
                 </div>
                 <div class="field">
-                  <label for="df-preco" class="field__label">Preço (R$) *</label>
+                  <label for="df-preco" class="field__label">Preço (R$) <span class="field__obrig">*</span></label>
                   <input type="number" id="df-preco" class="field__input" placeholder="Ex: 2890" min="1" step="0.01" required />
                 </div>
                 <div class="field">
-                  <label for="df-categoria" class="field__label">Categoria *</label>
+                  <label for="df-categoria" class="field__label">Categoria <span class="field__obrig">*</span></label>
                   <select id="df-categoria" class="filtros__select" required>
                     <option value="">Selecione...</option>
                     <option value="colchao">Colchões</option>
@@ -154,7 +243,7 @@
                 </div>
                 <div class="field field--full">
                   <label for="df-descricao" class="field__label">Descrição</label>
-                  <textarea id="df-descricao" class="field__input field__textarea" placeholder="Descrição detalhada do produto..." rows="3"></textarea>
+                  <textarea id="df-descricao" class="field__input field__textarea" placeholder="Descrição detalhada do produto..." rows="4"></textarea>
                 </div>
                 <div class="field field--full">
                   <label class="field__label dash-check-label">
@@ -163,87 +252,112 @@
                   </label>
                 </div>
               </div>
-              <div class="dash-form__actions">
+              <div class="db-form-actions">
                 <button type="button" class="btn btn--ghost" id="dash-form-cancelar">Cancelar</button>
-                <button type="submit" class="btn btn--primario" id="dash-form-submit">Salvar Produto</button>
+                <button type="submit" class="btn btn--primario" id="dash-form-submit">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Salvar Produto
+                </button>
               </div>
             </form>
           </div>
-        </div>
+        </section>
 
-        <!-- Filtro da tabela -->
-        <div class="dash-table-filter">
-          <input type="text" id="dash-busca" class="field__input" placeholder="Buscar produto por nome..." aria-label="Buscar produto" />
-          <select id="dash-filtro-cat" class="filtros__select" aria-label="Filtrar por categoria">
-            <option value="todos">Todas as categorias</option>
-            <option value="colchao">Colchões</option>
-            <option value="cama">Cama</option>
-            <option value="sofa">Sofá</option>
-            <option value="cabeceira">Cabeceira</option>
-            <option value="puff">Puff</option>
-            <option value="travesseiro">Travesseiro</option>
-            <option value="almofada">Almofada</option>
-            <option value="poltrona">Poltrona</option>
-          </select>
-        </div>
-
-        <!-- Tabela de produtos -->
-        <div class="dash-table-wrap" role="region" aria-label="Tabela de produtos">
-          <table class="dash-table" id="dash-tabela-produtos">
-            <thead>
-              <tr>
-                <th scope="col">Produto</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Destaque</th>
-                <th scope="col" class="text-center">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="dash-tabela-body">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
-          <div class="dash-table-empty" id="dash-tabela-empty" hidden>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <p>Nenhum produto encontrado.</p>
+        <!-- ===== SEÇÃO: CLIENTES CADASTRADOS ===== -->
+        <section class="db-section" id="section-clientes" aria-labelledby="titulo-clientes" hidden>
+          <div class="db-section-header">
+            <div>
+              <h1 class="db-section-title" id="titulo-clientes">Clientes Cadastrados</h1>
+              <p class="db-section-sub">Lista de todos os usuários registrados no sistema.</p>
+            </div>
           </div>
-        </div>
-        <div class="dash-table-count" id="dash-table-count"></div>
-      </section>
 
-      <!-- ===== USUÁRIOS ===== -->
-      <section class="dash-section" id="dash-usuarios" aria-labelledby="dash-usuarios-titulo">
-        <h2 class="dash-section__titulo" id="dash-usuarios-titulo">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Usuários Cadastrados
-        </h2>
-        <div class="dash-table-wrap">
-          <table class="dash-table" id="dash-tabela-usuarios">
-            <thead>
-              <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Perfil</th>
-                <th scope="col">Cadastrado em</th>
-              </tr>
-            </thead>
-            <tbody id="dash-usuarios-body">
+          <div class="db-card">
+            <div class="dash-table-wrap">
+              <table class="dash-table" id="dash-tabela-usuarios">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Perfil</th>
+                    <th scope="col">Cadastrado em</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-usuarios-body">
+                  <!-- Renderizado via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== SEÇÃO: ESTOQUE ===== -->
+        <section class="db-section" id="section-estoque" aria-labelledby="titulo-estoque" hidden>
+          <div class="db-section-header">
+            <div>
+              <h1 class="db-section-title" id="titulo-estoque">Estoque</h1>
+              <p class="db-section-sub">Quantidade e distribuição dos produtos por categoria.</p>
+            </div>
+          </div>
+
+          <div class="db-card">
+            <div class="dash-table-wrap">
+              <table class="dash-table" id="dash-tabela-estoque">
+                <thead>
+                  <tr>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Densidade</th>
+                    <th scope="col">Destaque</th>
+                    <th scope="col" class="text-center">Qtd. em Estoque</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-estoque-body">
+                  <!-- Renderizado via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== SEÇÃO: FAVORITOS ===== -->
+        <section class="db-section" id="section-favoritos" aria-labelledby="titulo-favoritos" hidden>
+          <div class="db-section-header">
+            <div>
+              <h1 class="db-section-title" id="titulo-favoritos">Favoritos</h1>
+              <p class="db-section-sub">Ranking dos produtos mais favoritados pelos clientes.</p>
+            </div>
+          </div>
+
+          <div class="db-card">
+            <div id="db-favoritos-ranking">
               <!-- Renderizado via JS -->
-            </tbody>
-          </table>
-        </div>
-      </section>
+            </div>
+          </div>
+        </section>
 
-    </div>
-  </main>
+        <!-- ===== SEÇÃO: MÉTRICAS ===== -->
+        <section class="db-section" id="section-metricas" aria-labelledby="titulo-metricas" hidden>
+          <div class="db-section-header">
+            <div>
+              <h1 class="db-section-title" id="titulo-metricas">Métricas</h1>
+              <p class="db-section-sub">Análise detalhada de desempenho do catálogo e clientes.</p>
+            </div>
+          </div>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer footer--compact" role="contentinfo">
-    <div class="container footer__bottom-inner">
-      <p>&copy; <span class="ano-footer"></span> Santa Rita - Casa dos Colchões — Painel Administrativo</p>
+          <div class="metricas-grid" id="metricas-grid">
+            <!-- Renderizado via JS -->
+          </div>
+        </section>
+
+      </main>
     </div>
-  </footer>
+  </div>
+
+  <!-- Overlay mobile sidebar -->
+  <div class="db-overlay" id="db-overlay" aria-hidden="true"></div>
 
   <!-- ===== MODAL CONFIRMAÇÃO EXCLUSÃO ===== -->
   <div class="modal-overlay" id="modal-confirmar" role="dialog" aria-modal="true" aria-labelledby="modal-conf-titulo" hidden>
@@ -264,297 +378,6 @@
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <script src="script.js"></script>
-  <script>
-    'use strict';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.ano-footer').forEach(el => el.textContent = new Date().getFullYear());
-
-      // Proteger rota: só Dono ou Funcionário
-      const usuario = Auth.getUsuarioLogado();
-      if (!usuario || usuario.role === 'Cliente') {
-        mostrarToast('Acesso restrito. Faça login com uma conta administrativa.', 'erro');
-        setTimeout(() => { window.location.href = 'login.html'; }, 1800);
-        return;
-      }
-
-      initHeaderAuth();
-      initHeaderNav();
-
-      // Saudação
-      const hora = new Date().getHours();
-      const periodo = hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
-      document.getElementById('dash-saudacao').textContent =
-        `${periodo}, ${usuario.nome} (${usuario.role}) — ${new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}`;
-
-      renderMetricas();
-      renderTabelaProdutos();
-      renderTabelaUsuarios();
-      initDashForm();
-      initDashFiltros();
-    });
-
-    /* ===== MÉTRICAS ===== */
-    function renderMetricas() {
-      const produtos  = Dashboard.getProdutos();
-      const usuarios  = Auth.getUsuarios();
-      const favs      = JSON.parse(localStorage.getItem('sr_favoritos') || '[]');
-
-      // Produto mais favoritado
-      const contagemFav = {};
-      favs.forEach(id => { contagemFav[id] = (contagemFav[id] || 0) + 1; });
-      const maisIdFav = Object.keys(contagemFav).sort((a,b) => contagemFav[b]-contagemFav[a])[0];
-      const maisFav = produtos.find(p => p.id == maisIdFav) || produtos[0];
-
-      const metricas = [
-        {
-          ico: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
-          valor: produtos.length,
-          label: 'Produtos em Estoque',
-          cor: 'azul',
-          detalhe: `${produtos.filter(p=>p.destaque).length} em destaque`,
-        },
-        {
-          ico: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
-          valor: maisFav ? maisFav.titulo.split(' ').slice(0,3).join(' ')+'…' : '—',
-          label: 'Produto Mais Favoritado',
-          cor: 'vermelho',
-          detalhe: maisFav ? `${contagemFav[maisFav.id] || 0} ♥ registrado(s)` : 'Sem favoritos ainda',
-        },
-        {
-          ico: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-          valor: usuarios.length,
-          label: 'Usuários Cadastrados',
-          cor: 'verde',
-          detalhe: `${usuarios.filter(u=>u.role==='Cliente').length} clientes · ${usuarios.filter(u=>u.role!=='Cliente').length} admin`,
-        },
-        {
-          ico: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
-          valor: formatarPreco(produtos.reduce((s,p)=>s+p.preco,0) / (produtos.length||1)),
-          label: 'Ticket Médio do Catálogo',
-          cor: 'laranja',
-          detalhe: `de ${formatarPreco(Math.min(...produtos.map(p=>p.preco)))} a ${formatarPreco(Math.max(...produtos.map(p=>p.preco)))}`,
-        },
-      ];
-
-      const grid = document.getElementById('metricas-grid');
-      grid.innerHTML = metricas.map(m => `
-        <div class="metrica-card metrica-card--${m.cor}">
-          <div class="metrica-card__ico">${m.ico}</div>
-          <div class="metrica-card__corpo">
-            <div class="metrica-card__valor">${m.valor}</div>
-            <div class="metrica-card__label">${m.label}</div>
-            <div class="metrica-card__detalhe">${m.detalhe}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    /* ===== TABELA DE PRODUTOS ===== */
-    let produtoParaRemover = null;
-
-    function renderTabelaProdutos(busca = '', catFiltro = 'todos') {
-      let produtos = Dashboard.getProdutos();
-      if (busca) produtos = produtos.filter(p => p.titulo.toLowerCase().includes(busca.toLowerCase()));
-      if (catFiltro !== 'todos') produtos = produtos.filter(p => p.categoria === catFiltro);
-
-      const tbody = document.getElementById('dash-tabela-body');
-      const empty = document.getElementById('dash-tabela-empty');
-      const count = document.getElementById('dash-table-count');
-
-      if (!produtos.length) {
-        tbody.innerHTML = '';
-        empty.hidden = false;
-        count.textContent = '';
-        return;
-      }
-      empty.hidden = true;
-      count.textContent = `${produtos.length} produto(s) encontrado(s)`;
-
-      tbody.innerHTML = produtos.map(p => `
-        <tr data-id="${p.id}">
-          <td class="dash-td-produto">
-            <img src="${p.img || 'https://via.placeholder.com/48x48?text=+'}" alt="" width="48" height="48" class="dash-prod-img" loading="lazy" />
-            <div>
-              <div class="dash-prod-nome">${p.titulo}</div>
-              <div class="dash-prod-id">ID #${p.id}</div>
-            </div>
-          </td>
-          <td><span class="dash-badge">${p.catNome || p.categoria}</span></td>
-          <td class="dash-td-preco">${formatarPreco(p.preco)}</td>
-          <td class="text-center">
-            ${p.destaque
-              ? `<span class="dash-status dash-status--sim">✓ Sim</span>`
-              : `<span class="dash-status dash-status--nao">— Não</span>`}
-          </td>
-          <td class="text-center">
-            <div class="dash-acoes">
-              <button class="dash-btn-acao dash-btn-acao--editar" data-id="${p.id}" aria-label="Editar ${p.titulo}">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                Editar
-              </button>
-              <button class="dash-btn-acao dash-btn-acao--remover" data-id="${p.id}" aria-label="Remover ${p.titulo}">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-                Remover
-              </button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
-
-      // Eventos de editar
-      tbody.querySelectorAll('.dash-btn-acao--editar').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const p = Dashboard.getProdutos().find(x => x.id == btn.dataset.id);
-          if (!p) return;
-          abrirFormEdicao(p);
-        });
-      });
-
-      // Eventos de remover
-      tbody.querySelectorAll('.dash-btn-acao--remover').forEach(btn => {
-        btn.addEventListener('click', () => {
-          produtoParaRemover = btn.dataset.id;
-          const p = Dashboard.getProdutos().find(x => x.id == btn.dataset.id);
-          document.getElementById('modal-conf-desc').textContent =
-            `Remover "${p?.titulo}"? Esta ação não pode ser desfeita.`;
-          abrirModal('modal-confirmar');
-        });
-      });
-    }
-
-    /* ===== MODAL CONFIRMAR REMOÇÃO ===== */
-    document.getElementById('conf-cancelar')?.addEventListener('click', () => {
-      fecharModal('modal-confirmar');
-      produtoParaRemover = null;
-    });
-    document.getElementById('conf-confirmar')?.addEventListener('click', () => {
-      if (!produtoParaRemover) return;
-      Dashboard.removerProduto(produtoParaRemover);
-      fecharModal('modal-confirmar');
-      produtoParaRemover = null;
-      renderTabelaProdutos(document.getElementById('dash-busca').value, document.getElementById('dash-filtro-cat').value);
-      renderMetricas();
-      mostrarToast('Produto removido com sucesso.', 'info');
-    });
-    document.getElementById('modal-confirmar')?.addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) fecharModal('modal-confirmar');
-    });
-
-    /* ===== FORM PRODUTO ===== */
-    function initDashForm() {
-      const wrap  = document.getElementById('dash-form-wrap');
-      const form  = document.getElementById('dash-form-produto');
-      const tit   = document.getElementById('dash-form-titulo');
-      const sbmit = document.getElementById('dash-form-submit');
-
-      document.getElementById('dash-btn-add-produto')?.addEventListener('click', () => {
-        limparForm();
-        tit.textContent = 'Adicionar Novo Produto';
-        sbmit.textContent = 'Salvar Produto';
-        wrap.hidden = false;
-        document.getElementById('df-nome').focus();
-        wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-
-      document.getElementById('dash-form-fechar')?.addEventListener('click', () => { wrap.hidden = true; limparForm(); });
-      document.getElementById('dash-form-cancelar')?.addEventListener('click', () => { wrap.hidden = true; limparForm(); });
-
-      form?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const id         = document.getElementById('df-id').value;
-        const nome       = document.getElementById('df-nome').value.trim();
-        const preco      = parseFloat(document.getElementById('df-preco').value);
-        const categoria  = document.getElementById('df-categoria').value;
-        const densidade  = document.getElementById('df-densidade').value.trim();
-        const tecnologia = document.getElementById('df-tecnologia').value.trim();
-        const img        = document.getElementById('df-img').value.trim();
-        const descricao  = document.getElementById('df-descricao').value.trim();
-        const destaque   = document.getElementById('df-destaque').checked;
-
-        if (!nome || !preco || !categoria) {
-          mostrarToast('Preencha nome, preço e categoria.', 'erro'); return;
-        }
-
-        const catNomes = { colchao:'Colchões', cama:'Cama', sofa:'Sofá', cabeceira:'Cabeceira', puff:'Puff', travesseiro:'Travesseiro', almofada:'Almofada', poltrona:'Poltrona' };
-        const produto = {
-          titulo: nome, preco, categoria, catNome: catNomes[categoria] || categoria,
-          destaque, img: img || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
-          descricao, tag: destaque ? 'Destaque' : null,
-          specs: { Densidade: densidade || '—', Tecnologia: tecnologia || '—', Garantia: '1 ano' },
-        };
-
-        if (id) {
-          Dashboard.editarProduto(id, produto);
-          mostrarToast(`"${nome}" atualizado com sucesso!`, 'sucesso');
-        } else {
-          Dashboard.adicionarProduto(produto);
-          mostrarToast(`"${nome}" adicionado ao catálogo!`, 'sucesso');
-        }
-
-        wrap.hidden = true;
-        limparForm();
-        renderTabelaProdutos(document.getElementById('dash-busca').value, document.getElementById('dash-filtro-cat').value);
-        renderMetricas();
-      });
-    }
-
-    function abrirFormEdicao(p) {
-      const wrap = document.getElementById('dash-form-wrap');
-      document.getElementById('df-id').value         = p.id;
-      document.getElementById('df-nome').value       = p.titulo;
-      document.getElementById('df-preco').value      = p.preco;
-      document.getElementById('df-categoria').value  = p.categoria;
-      document.getElementById('df-densidade').value  = p.specs?.Densidade || '';
-      document.getElementById('df-tecnologia').value = p.specs?.Tecnologia || '';
-      document.getElementById('df-img').value        = p.img || '';
-      document.getElementById('df-descricao').value  = p.descricao || '';
-      document.getElementById('df-destaque').checked = p.destaque;
-      document.getElementById('dash-form-titulo').textContent = 'Editar Produto';
-      document.getElementById('dash-form-submit').textContent = 'Salvar Alterações';
-      wrap.hidden = false;
-      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      document.getElementById('df-nome').focus();
-    }
-
-    function limparForm() {
-      document.getElementById('dash-form-produto').reset();
-      document.getElementById('df-id').value = '';
-    }
-
-    /* ===== FILTROS DA TABELA ===== */
-    function initDashFiltros() {
-      let timer;
-      document.getElementById('dash-busca')?.addEventListener('input', (e) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          renderTabelaProdutos(e.target.value, document.getElementById('dash-filtro-cat').value);
-        }, 280);
-      });
-      document.getElementById('dash-filtro-cat')?.addEventListener('change', (e) => {
-        renderTabelaProdutos(document.getElementById('dash-busca').value, e.target.value);
-      });
-    }
-
-    /* ===== TABELA USUÁRIOS ===== */
-    function renderTabelaUsuarios() {
-      const usuarios = Auth.getUsuarios();
-      const tbody = document.getElementById('dash-usuarios-body');
-      tbody.innerHTML = usuarios.map(u => `
-        <tr>
-          <td>
-            <div class="dash-user">
-              <div class="dep-card__avatar" style="width:36px;height:36px;font-size:.85rem">${u.nome.charAt(0).toUpperCase()}</div>
-              <strong>${u.nome}</strong>
-            </div>
-          </td>
-          <td>${u.email}</td>
-          <td>${u.telefone || '—'}</td>
-          <td><span class="dash-badge dash-badge--role dash-badge--${u.role.toLowerCase()}">${u.role}</span></td>
-          <td>${u.criadoEm ? new Date(u.criadoEm).toLocaleDateString('pt-BR') : '—'}</td>
-        </tr>
-      `).join('');
-    }
-  </script>
+  <script src="dashboard.js"></script>
 </body>
 </html>

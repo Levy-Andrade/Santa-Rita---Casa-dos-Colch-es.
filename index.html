@@ -105,7 +105,7 @@
       </div>
     </section>
 
-    <!-- ===== FAIXA DE DIFERENCIAIS — Transição Hero → Banner (Solução 1) ===== -->
+    <!-- ===== FAIXA DE DIFERENCIAIS ===== -->
     <div class="hero-transition-strip" aria-label="Nossos diferenciais">
       <div class="container hero-transition-strip__inner">
         <div class="hero-diferencial">
@@ -128,25 +128,15 @@
     </div>
 
     <!-- ===== CARROSSEL DE BANNERS PROMOCIONAIS ===== -->
-    <!--
-      COMO USAR: Adicione novos slides copiando o bloco <a class="banner-slide">...</a>
-      Troque href pelo link de destino (catálogo ou WhatsApp) e src pela sua imagem de banner.
-      Tamanho recomendado: 1440×480px (proporção 3:1).
-    -->
     <section class="banner-promo" id="banner-promo" aria-label="Banners promocionais" aria-roledescription="carrossel">
       <div class="banner-promo__track-wrap">
         <div class="banner-promo__track" id="banner-promo-track">
 
-          <!-- SLIDE 1 — Substituir src pela sua imagem de Black Friday -->
           <a class="banner-slide"
              href="https://wa.me/5599701-7188?text=Quero%20aproveitar%20a%20promoção!"
              target="_blank" rel="noopener"
              aria-label="Promoção Black Friday — até 50% off. Clique para falar no WhatsApp.">
-            <img
-              src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1440&q=80"
-              alt="Black Friday — Até 50% de desconto em colchões e camas"
-              loading="eager" />
-            <!-- Overlay de texto (visível quando não há imagem) -->
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1440&q=80" alt="Black Friday — Até 50% de desconto em colchões e camas" loading="eager" />
             <div class="banner-slide__overlay">
               <span class="banner-slide__tag">⚡ Oferta Especial</span>
               <h2 class="banner-slide__titulo">Promoção Relâmpago</h2>
@@ -155,14 +145,8 @@
             </div>
           </a>
 
-          <!-- SLIDE 2 — Substituir src pela imagem do cupom/campanha -->
-          <a class="banner-slide"
-             href="#vitrine"
-             aria-label="Parcelamento em 10x sem juros — Clique para ver o catálogo.">
-            <img
-              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1440&q=80"
-              alt="Parcelamento facilitado em 10x sem juros"
-              loading="lazy" />
+          <a class="banner-slide" href="#vitrine" aria-label="Parcelamento em 10x sem juros — Clique para ver o catálogo.">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1440&q=80" alt="Parcelamento facilitado em 10x sem juros" loading="lazy" />
             <div class="banner-slide__overlay">
               <span class="banner-slide__tag">💳 Facilidade</span>
               <h2 class="banner-slide__titulo">10× Sem Juros</h2>
@@ -171,15 +155,11 @@
             </div>
           </a>
 
-          <!-- SLIDE 3 — Campanha sob medida -->
           <a class="banner-slide"
              href="https://wa.me/5599701-7188?text=Quero%20um%20produto%20sob%20medida!"
              target="_blank" rel="noopener"
              aria-label="Produtos sob medida — fale no WhatsApp.">
-            <img
-              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1440&q=80"
-              alt="Produtos sob medida para o seu espaço"
-              loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1440&q=80" alt="Produtos sob medida para o seu espaço" loading="lazy" />
             <div class="banner-slide__overlay">
               <span class="banner-slide__tag">📐 Exclusivo</span>
               <h2 class="banner-slide__titulo">Feito Sob Medida</h2>
@@ -188,10 +168,9 @@
             </div>
           </a>
 
-        </div><!-- /.banner-promo__track -->
-      </div><!-- /.banner-promo__track-wrap -->
+        </div>
+      </div>
 
-      <!-- Setas de navegação -->
       <button class="banner-promo__arrow banner-promo__arrow--prev" id="banner-prev" aria-label="Banner anterior">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
@@ -199,11 +178,10 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
 
-      <!-- Dots de paginação -->
       <div class="banner-promo__dots" id="banner-dots" role="tablist" aria-label="Navegar pelos banners"></div>
     </section>
 
-    <!-- Divisor geométrico hero → stats -->
+    <!-- Divisor geométrico -->
     <div class="secao-divisor secao-divisor--azul-branco" aria-hidden="true">
       <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><polygon points="0,60 1440,0 1440,60" fill="var(--fundo-stats)"/></svg>
     </div>
@@ -237,19 +215,9 @@
           <h2 class="section-titulo" id="cat-titulo">Explore por Categoria</h2>
           <p class="section-subtitulo">Encontre exatamente o que você precisa para transformar seu espaço.</p>
         </header>
-      </div>
-      <div class="categorias__slider-container">
-        <button class="cat-slider__arrow cat-slider__arrow--prev" id="cat-prev" aria-label="Categorias anteriores">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <div class="categorias__track-wrap" id="categorias-track-wrap">
-          <div class="categorias__track" id="categorias-track" role="list" aria-label="Categorias de produtos">
-            <!-- Renderizado via JS -->
-          </div>
+        <div class="categorias__grid" id="categorias-grid" role="list" aria-label="Categorias de produtos">
+          <!-- Renderizado via JS -->
         </div>
-        <button class="cat-slider__arrow cat-slider__arrow--next" id="cat-next" aria-label="Proximas categorias">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
       </div>
     </section>
 
@@ -266,7 +234,6 @@
           <p class="section-subtitulo" id="vitrine-subtitulo">Seleção especial com os melhores preços da loja.</p>
         </header>
 
-        <!-- Filtros (ocultos inicialmente) -->
         <div class="filtros" id="filtros" aria-label="Filtros de produtos" hidden>
           <div class="filtros__grupo">
             <label for="filtro-categoria" class="filtros__label">Categoria:</label>
@@ -464,20 +431,35 @@
         </ul>
       </div>
 
-    
-          <div class="footer__mapa">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.0!2d-44.3028!3d-2.5297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMzEnNDYuOSJTIDQ0wrAxOCcxMC4xIlc!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
-              width="100%"
-              height="220"
-              style="border:0;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.25);"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Localização da Santa Rita - Casa dos Colchões no Google Maps"
-              aria-label="Mapa interativo com a localização da loja"
-            ></iframe>
-          </div>
+      <address class="footer__col" aria-label="Contato e localização">
+        <h3 class="footer__heading">Contato</h3>
+        <ul class="footer__list footer__list--contact" role="list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Rua Principal, s/n — Centro, Cidade — MA
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <a href="tel:5599860-8375" class="footer__link">(99) 99860-8375</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+            <a href="https://wa.me/5599701-7188" class="footer__link" target="_blank" rel="noopener">(99) 99701-7188</a>
+          </li>
+        </ul>
+
+        <div class="footer__mapa">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.0!2d-44.3028!3d-2.5297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMzEnNDYuOSJTIDQ0wrAxOCcxMC4xIlc!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
+            width="100%"
+            height="220"
+            style="border:0;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.25);"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização da Santa Rita - Casa dos Colchões no Google Maps"
+            aria-label="Mapa interativo com a localização da loja"
+          ></iframe>
         </div>
       </address>
     </div>
